@@ -296,6 +296,6 @@ if __name__ == '__main__':
     out_file.close()
 
     out_file = open('test.bin', 'wb')
-    outputs = [0b0111_00_00_11111111 | (0xFF & (i+0xA5)) for i in range(255)]
+    outputs = [0b0111_00_00_11111111 | (0xFF & (i+0xA5)) for i in range(255)] + [0xA5 for i in range((2 ** 16) - 255)]
     outputs = [struct.pack(">H", x) for x in outputs]
     [out_file.write(x) for x in outputs]
