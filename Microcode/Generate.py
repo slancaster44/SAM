@@ -7,6 +7,7 @@
 # 8-15  Opcode 
 
 import struct
+import itertools
 
 OPCODE_OFFSET = 12
 DST_OFFSET = 10
@@ -21,6 +22,7 @@ class Inputs:
     class State:
         COUT_0 = 0b0 << (COUT_OFFSET)
         COUT_1 = 0b1 << (COUT_OFFSET)
+        ALL_CONDS = [COUT_0, COUT_1]
 
         STEP_0  = 0b0000 << (STEP_OFFSET)
         STEP_1 = 0b0001 << (STEP_OFFSET)
@@ -57,28 +59,31 @@ class Inputs:
         PC = 0b01 << SRC_OFFSET
         IX = 0b10 << SRC_OFFSET
         AC = 0b11 << SRC_OFFSET
+        ALL = [ZR, PC, IX, AC]
 
     class DestinationRegister:
         ZR = 0b00 << DST_OFFSET
         PC = 0b01 << DST_OFFSET
         IX = 0b10 << DST_OFFSET
         AC = 0b11 << DST_OFFSET
+        ALL = [ZR, PC, IX, AC]
 
     class AddressingMode:
         DIR = 0b00 << AM_OFFSET
         DEF = 0b01 << AM_OFFSET
         INC = 0b10 << AM_OFFSET
         DEC = 0b11 << AM_OFFSET
+        ALL = [DIR, DEF, INC, DEC]
 
     class BaseRegister:
         ZR = 0b00 << BASE_OFFSET
         PC = 0b01 << BASE_OFFSET
         IX = 0b10 << BASE_OFFSET
         AC = 0b11 << BASE_OFFSET
+        ALL = [ZR, PC, IX, AC]
 
 class Outputs:
     ALU_CP_RE = (1 << 0)
-    ALU_ROR_HI = (1 << 1)
     ALU_FN_SEL_0 = (1 << 2)
     ALU_FN_SEL_1 = (1 << 3)
     ALU_COUT_CP_RE = (1 << 4)
@@ -115,5 +120,113 @@ class Outputs:
     RST_STEP = (1 << 31)
 
     DEFAULT_OUTPUT = \
-       (0 & SPI_DS_CP_RE) | (SPI_OE_LO) | (0 & SPI_CLK_IN_RE) \
-       | (SPI_SH_HI_LD_LO) | (0 & SPI_CLK_IN_RE) | (0 & RST_STEP)
+        (0 & ALU_CP_RE) | (0 & ALU_FN_SEL_0) | (0 & ALU_FN_SEL_1) | (0 & ALU_COUT_CP_RE ) \
+        | (MOR_OE_LO) | (0 & MOR_CP_RE) | (RHS_ZR_OE_LO) \
+        | (0 & MEM_WE_HI) | (IR_IMM_OE_LO) | (0 & IR_CP_RE) \
+        | (0 & LHS_IMM_0) | (0 & MEM_CP_WR_RE) | (0 & MEM_IN_SEL) \
+        | (0 & AC_CP_RE) | (LHS_IMM_OE_LO) | (0 & LHS_IMM_S) \
+        | (IX_OE_LO) | (0 & IX_CP_RE) | (AC_OE_LO) \
+        | (0 & SCLK) | (PC_CEP_HI) | (PC_CP_FE) \
+        | (PC_YB_OE_LO) | (0 & MAR_CP_RE) | (MAR_OE_LO) \
+        | (0 & SPI_DS_CP_RE) | (SPI_OE_LO) | (0 & SPI_CLK_IN_RE) \
+        | (SPI_SH_HI_LD_LO) | (0 & SPI_CLK_IN_RE) | (RST_STEP)
+
+class MicrocodeBuilders:
+    def __init__(self):
+        self.builders = [self.placeFetches, self.placeSubtractImmdiate]
+
+    def ApplyBuilders(self, microcode):
+        [x(microcode) for x in self.builders]
+
+    def placeFetches(self, microcode):
+        for i in range(256):
+            step0_c0_location = (i << BASE_OFFSET) | Inputs.State.STEP_0 | Inputs.State.COUT_0
+            step0_c1_location = (i << BASE_OFFSET) | Inputs.State.STEP_0 | Inputs.State.COUT_1
+
+            step1_c0_location = (i << BASE_OFFSET) | Inputs.State.STEP_1 | Inputs.State.COUT_0
+            step1_c1_location = (i << BASE_OFFSET) | Inputs.State.STEP_1 | Inputs.State.COUT_1
+
+            microcode[step0_c0_location] = Outputs.DEFAULT_OUTPUT | Outputs.IR_CP_RE
+            microcode[step0_c1_location] = Outputs.DEFAULT_OUTPUT | Outputs.IR_CP_RE
+
+            microcode[step1_c0_location] = Outputs.DEFAULT_OUTPUT & (~Outputs.PC_CP_FE)
+            microcode[step1_c1_location] = Outputs.DEFAULT_OUTPUT & (~Outputs.PC_CP_FE)
+
+    def placeSubtractImmdiate(self, microcode):
+        options = itertools.product(
+            [Inputs.Opcode.SUBI, Inputs.Opcode.SUBIC],
+            Inputs.DestinationRegister.ALL,
+            Inputs.SourceRegister.ALL,
+            Inputs.State.ALL_CONDS)
+
+        for (op, dr, sr, cond) in options:
+            opcode = op | dr | sr | cond 
+
+            step0_code = opcode | Inputs.State.STEP_1
+            step1_code = opcode | Inputs.State.STEP_2
+            step2_code = opcode | Inputs.State.STEP_3
+
+            if (cond == Inputs.State.COUT_0) and (op == Inputs.Opcode.SUBIC):
+                microcode[step0_code] &= ~(Outputs.RST_STEP)
+                continue
+
+            sr_signal = 0
+            if sr == Inputs.SourceRegister.AC:
+                sr_signal = Outputs.AC_OE_LO
+            elif sr == Inputs.SourceRegister.IX:
+                sr_signal = Outputs.IX_OE_LO
+            elif sr == Inputs.SourceRegister.PC:
+                sr_signal = Outputs.PC_YB_OE_LO
+            elif sr == Inputs.SourceRegister.ZR:
+                sr_signal = Outputs.LHS_IMM_OE_LO
+            else:
+                raise RuntimeError("unhandled source register")
+
+            dr_signal = 0
+            if dr == Inputs.DestinationRegister.AC:
+                dr_signal = Outputs.AC_CP_RE
+            elif dr == Inputs.DestinationRegister.IX:
+                dr_signal = Outputs.IX_CP_RE
+            elif dr == Inputs.DestinationRegister.PC:
+                dr_signal = Outputs.PC_CP_FE | Outputs.PC_CEP_HI
+            elif dr == Inputs.DestinationRegister.ZR:
+                dr_signal = 0
+            else:
+                raise RuntimeError("unhandled destination register")
+
+            microcode[step0_code] &= (~sr_signal) 
+            microcode[step0_code] &= (~Outputs.IR_IMM_OE_LO) 
+            microcode[step0_code] |= Outputs.ALU_FN_SEL_1
+            
+            microcode[step1_code] &= (~sr_signal) 
+            microcode[step1_code] &= (~Outputs.IR_IMM_OE_LO) 
+            microcode[step1_code] |= Outputs.ALU_FN_SEL_1
+            microcode[step1_code] |= Outputs.ALU_CP_RE 
+            microcode[step1_code] |= Outputs.ALU_COUT_CP_RE
+            
+            microcode[step2_code] = Outputs.DEFAULT_OUTPUT 
+            microcode[step2_code] |= (dr_signal)
+            microcode[step2_code] &= (~Outputs.RST_STEP)
+                
+            if dr == Inputs.DestinationRegister.PC:
+                microcode[step2_code] = Outputs.DEFAULT_OUTPUT 
+                microcode[step2_code] &= (~dr_signal)
+                microcode[step2_code] &= (~Outputs.RST_STEP)
+
+if __name__ == '__main__':
+    output = [Outputs.DEFAULT_OUTPUT] * (2 ** 16)
+    builders = MicrocodeBuilders()
+    builders.ApplyBuilders(output)
+
+    out_file = open('microcode.bin', 'wb')
+
+    for word in output:
+        micro_word = struct.pack(">L", word)
+        out_file.write(micro_word)
+
+    out_file.close()
+
+    out_file = open('test.bin', 'wb')
+    outputs = [0b0001_11_00_00000000 | (0xFF & (i+0xA5)) for i in range(255)]
+    outputs = [struct.pack(">H", x) for x in outputs]
+    [out_file.write(x) for x in outputs]
