@@ -137,6 +137,7 @@ class MicrocodeBuilders:
             self.placeFetches, 
             self.placeSubtractImmediate,
             self.placeDirectMemoryMath,
+            self.placeDeferredMemoryMath,
         ]
 
     def ApplyBuilders(self, microcode):
@@ -282,6 +283,90 @@ class MicrocodeBuilders:
             microcode[step5_code] |= Outputs.AC_CP_RE
             microcode[step5_code] &= (~Outputs.RST_STEP)
 
+    def placeDeferredMemoryMath(self, microcode):
+        options = itertools.product(
+            [Inputs.Opcode.ADD, Inputs.Opcode.SUB, Inputs.Opcode.EOR, Inputs.Opcode.NOR],
+            Inputs.BaseRegister.ALL,
+            Inputs.State.ALL_CONDS)
+        
+        for (op, base, cond) in options:
+            opcode = op | Inputs.AddressingMode.DEF | base | cond
+
+            step0_code = opcode | Inputs.State.STEP_1
+            step1_code = opcode | Inputs.State.STEP_2
+            step2_code = opcode | Inputs.State.STEP_3
+            step3_code = opcode | Inputs.State.STEP_4
+            step4_code = opcode | Inputs.State.STEP_5
+            step5_code = opcode | Inputs.State.STEP_6
+            step6_code = opcode | Inputs.State.STEP_7
+            step7_code = opcode | Inputs.State.STEP_8
+            step8_code = opcode | Inputs.State.STEP_9
+
+            base_signal = 0
+            if base == Inputs.BaseRegister.AC:
+                base_signal = Outputs.AC_OE_LO
+            elif base == Inputs.BaseRegister.IX:
+                base_signal = Outputs.IX_OE_LO
+            elif base == Inputs.BaseRegister.PC:
+                base_signal = Outputs.PC_YB_OE_LO
+            elif base == Inputs.BaseRegister.ZR:
+                base_signal = Outputs.LHS_IMM_OE_LO
+            else:
+                raise RuntimeError("unhandled base register")
+            
+            arith_op = 0
+            if op == Inputs.Opcode.ADD:
+                arith_op = 0
+            elif op == Inputs.Opcode.SUB:
+                arith_op = Outputs.ALU_FN_SEL_0
+            elif op == Inputs.Opcode.NOR:
+                arith_op = Outputs.ALU_FN_SEL_1
+            elif op == Inputs.Opcode.EOR:
+                arith_op = Outputs.ALU_FN_SEL_0 | Outputs.ALU_FN_SEL_1
+            else:
+                raise RuntimeError("unhandled direct memory operation")
+
+            microcode[step0_code] &= (~base_signal) 
+            microcode[step0_code] &= (~Outputs.IR_IMM_OE_LO) 
+
+            microcode[step1_code] &= (~base_signal) 
+            microcode[step1_code] &= (~Outputs.IR_IMM_OE_LO) 
+            microcode[step1_code] |= Outputs.ALU_CP_RE 
+
+            microcode[step2_code] |= Outputs.MAR_CP_RE
+            microcode[step2_code] &= (~Outputs.MAR_OE_LO)
+            microcode[step2_code] |= Outputs.MEM_IN_SEL
+
+            microcode[step3_code] &= (~Outputs.MAR_OE_LO)
+            microcode[step3_code] |= Outputs.MEM_IN_SEL
+            microcode[step3_code] |= Outputs.MOR_CP_RE
+            microcode[step3_code] &= (~Outputs.MOR_OE_LO)
+            microcode[step3_code] &= (~Outputs.LHS_IMM_OE_LO)
+
+            microcode[step4_code] &= (~Outputs.MOR_OE_LO)
+            microcode[step4_code] &= (~Outputs.LHS_IMM_OE_LO)
+            microcode[step4_code] |= Outputs.ALU_CP_RE
+
+            microcode[step5_code] |= Outputs.MAR_CP_RE
+            microcode[step5_code] &= (~Outputs.MAR_OE_LO)
+            microcode[step5_code] |= Outputs.MEM_IN_SEL
+
+            microcode[step6_code] &= (~Outputs.MAR_OE_LO)
+            microcode[step6_code] |= Outputs.MEM_IN_SEL
+            microcode[step6_code] |= Outputs.MOR_CP_RE
+            microcode[step6_code] &= (~Outputs.MOR_OE_LO)
+            microcode[step6_code] &= (~Outputs.AC_OE_LO)
+            microcode[step6_code] |= arith_op
+
+            microcode[step7_code] &= (~Outputs.MOR_OE_LO)
+            microcode[step7_code] &= (~Outputs.AC_OE_LO)
+            microcode[step7_code] |= arith_op
+            microcode[step7_code] |= Outputs.ALU_COUT_CP_RE
+            microcode[step7_code] |= Outputs.ALU_CP_RE
+
+            microcode[step8_code] |= Outputs.AC_CP_RE
+            microcode[step8_code] &= (~Outputs.RST_STEP)
+
 if __name__ == '__main__':
     output = [Outputs.DEFAULT_OUTPUT] * (2 ** 16)
     builders = MicrocodeBuilders()
@@ -296,6 +381,6 @@ if __name__ == '__main__':
     out_file.close()
 
     out_file = open('test.bin', 'wb')
-    outputs = [0b0111_00_00_11111111 | (0xFF & (i+0xA5)) for i in range(255)] + [0xA5 for i in range((2 ** 16) - 255)]
+    outputs = [0b0111_01_00_11111111 | (0xFF & (i+0xA5)) for i in range(255)] + [0xA5 for i in range((2 ** 16) - 255)]
     outputs = [struct.pack(">H", x) for x in outputs]
     [out_file.write(x) for x in outputs]
