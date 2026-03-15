@@ -41,8 +41,6 @@ class Inputs:
     class Opcode:
         SUBIC = 0b0000 << OPCODE_OFFSET 
         SUBI = 0b0001 << OPCODE_OFFSET
-        ADDIC = 0b0010 << OPCODE_OFFSET
-        ADDI = 0b0011 << OPCODE_OFFSET
         EOR = 0b0100 << OPCODE_OFFSET
         SUB = 0b0101 << OPCODE_OFFSET
         NOR = 0b0110 << OPCODE_OFFSET
