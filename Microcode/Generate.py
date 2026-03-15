@@ -218,7 +218,7 @@ class MicrocodeBuilders:
 
     def placeDirectMemoryMath(self, microcode):
         options = itertools.product(
-            [Inputs.Opcode.ADD, Inputs.Opcode.SUB, Inputs.Opcode.EOR, Inputs.Opcode.NOR],
+            [Inputs.Opcode.ADD, Inputs.Opcode.SUB, Inputs.Opcode.EOR, Inputs.Opcode.NOR, Inputs.Opcode.LD],
             Inputs.BaseRegister.ALL,
             Inputs.State.ALL_CONDS)
         
@@ -245,7 +245,7 @@ class MicrocodeBuilders:
                 raise RuntimeError("unhandled base register")
             
             arith_op = 0
-            if op == Inputs.Opcode.ADD:
+            if op == Inputs.Opcode.ADD or op == Inputs.Opcode.LD:
                 arith_op = 0
             elif op == Inputs.Opcode.SUB:
                 arith_op = Outputs.ALU_FN_SEL_0
@@ -271,11 +271,18 @@ class MicrocodeBuilders:
             microcode[step3_code] |= Outputs.MEM_IN_SEL
             microcode[step3_code] |= Outputs.MOR_CP_RE
             microcode[step3_code] &= (~Outputs.MOR_OE_LO)
-            microcode[step3_code] &= (~Outputs.AC_OE_LO)
+            if op != Inputs.Opcode.LD: 
+                microcode[step3_code] &= (~Outputs.AC_OE_LO)
+            else:
+                microcode[step3_code] &= (~Outputs.LHS_IMM_OE_LO)
             microcode[step3_code] |= arith_op
 
             microcode[step4_code] &= (~Outputs.MOR_OE_LO)
-            microcode[step4_code] &= (~Outputs.AC_OE_LO)
+            if op != Inputs.Opcode.LD: 
+                microcode[step4_code] &= (~Outputs.AC_OE_LO)
+            else:
+                microcode[step4_code] &= (~Outputs.LHS_IMM_OE_LO)
+
             microcode[step4_code] |= arith_op
             microcode[step4_code] |= Outputs.ALU_COUT_CP_RE
             microcode[step4_code] |= Outputs.ALU_CP_RE
@@ -285,7 +292,7 @@ class MicrocodeBuilders:
 
     def placeDeferredMemoryMath(self, microcode):
         options = itertools.product(
-            [Inputs.Opcode.ADD, Inputs.Opcode.SUB, Inputs.Opcode.EOR, Inputs.Opcode.NOR],
+            [Inputs.Opcode.ADD, Inputs.Opcode.SUB, Inputs.Opcode.EOR, Inputs.Opcode.NOR, Inputs.Opcode.LD],
             Inputs.BaseRegister.ALL,
             Inputs.State.ALL_CONDS)
         
@@ -315,7 +322,7 @@ class MicrocodeBuilders:
                 raise RuntimeError("unhandled base register")
             
             arith_op = 0
-            if op == Inputs.Opcode.ADD:
+            if op == Inputs.Opcode.ADD or op == Inputs.Opcode.LD:
                 arith_op = 0
             elif op == Inputs.Opcode.SUB:
                 arith_op = Outputs.ALU_FN_SEL_0
@@ -355,11 +362,18 @@ class MicrocodeBuilders:
             microcode[step6_code] |= Outputs.MEM_IN_SEL
             microcode[step6_code] |= Outputs.MOR_CP_RE
             microcode[step6_code] &= (~Outputs.MOR_OE_LO)
-            microcode[step6_code] &= (~Outputs.AC_OE_LO)
+            if op != Inputs.Opcode.LD: 
+                microcode[step6_code] &= (~Outputs.AC_OE_LO)
+            else:
+                microcode[step6_code] &= (~Outputs.AC_OE_LO)
             microcode[step6_code] |= arith_op
 
             microcode[step7_code] &= (~Outputs.MOR_OE_LO)
-            microcode[step7_code] &= (~Outputs.AC_OE_LO)
+            if op != Inputs.Opcode.LD: 
+                microcode[step7_code] &= (~Outputs.AC_OE_LO)
+            else:
+                microcode[step7_code] &= (~Outputs.LHS_IMM_OE_LO)
+
             microcode[step7_code] |= arith_op
             microcode[step7_code] |= Outputs.ALU_COUT_CP_RE
             microcode[step7_code] |= Outputs.ALU_CP_RE
