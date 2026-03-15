@@ -4,9 +4,10 @@
 
   <lib desc="#Wiring" name="0">
     <tool name="Splitter">
-      <a name="appear" val="right"/>
-      <a name="fanout" val="4"/>
-      <a name="incoming" val="4"/>
+      <a name="appear" val="center"/>
+      <a name="facing" val="west"/>
+      <a name="fanout" val="8"/>
+      <a name="incoming" val="8"/>
     </tool>
     <tool name="Pin">
       <a name="appearance" val="classic"/>
@@ -23,7 +24,6 @@
       <a name="facing" val="south"/>
     </tool>
     <tool name="AND Gate">
-      <a name="inputs" val="4"/>
       <a name="size" val="30"/>
     </tool>
     <tool name="OR Gate">
@@ -33,7 +33,6 @@
       <a name="size" val="30"/>
     </tool>
     <tool name="NOR Gate">
-      <a name="inputs" val="4"/>
       <a name="size" val="30"/>
     </tool>
     <tool name="XOR Gate">
@@ -128,9 +127,7 @@
       <a name="fanout" val="31"/>
       <a name="incoming" val="31"/>
     </comp>
-    <comp lib="0" loc="(1450,730)" name="NoConnect"/>
-    <comp lib="0" loc="(1450,740)" name="NoConnect"/>
-    <comp lib="0" loc="(1650,720)" name="Pin">
+    <comp lib="0" loc="(1710,740)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="SCLK"/>
@@ -138,6 +135,9 @@
     </comp>
     <comp lib="0" loc="(520,550)" name="Probe">
       <a name="appearance" val="classic"/>
+    </comp>
+    <comp lib="0" loc="(550,320)" name="Pull Resistor">
+      <a name="facing" val="east"/>
     </comp>
     <comp lib="0" loc="(640,670)" name="Pull Resistor">
       <a name="facing" val="east"/>
@@ -160,13 +160,13 @@
     <comp loc="(1260,280)" name="ALU"/>
     <comp loc="(1260,510)" name="MicroCodeEngine"/>
     <comp loc="(1260,630)" name="SpiEngine"/>
-    <comp loc="(410,280)" name="ZeroRegister">
-      <a name="label" val="LHS_ZR"/>
+    <comp loc="(410,280)" name="ImmediateGenerator">
+      <a name="label" val="LHS_IMM"/>
     </comp>
-    <comp loc="(410,350)" name="Register16bit">
+    <comp loc="(410,380)" name="Register16bit">
       <a name="label" val="AC"/>
     </comp>
-    <comp loc="(410,460)" name="Register16bit">
+    <comp loc="(410,490)" name="Register16bit">
       <a name="label" val="IX"/>
     </comp>
     <comp loc="(410,610)" name="BufferedCounter16bit">
@@ -175,19 +175,19 @@
     <comp loc="(410,760)" name="Register16bit">
       <a name="label" val="MAR"/>
     </comp>
-    <comp loc="(860,320)" name="ZeroRegister">
-      <a name="label" val="RHS_ZR"/>
+    <comp loc="(860,310)" name="ImmediateGenerator">
+      <a name="label" val="RHS_IMM"/>
     </comp>
-    <comp loc="(860,380)" name="Register16bit">
+    <comp loc="(860,410)" name="Register16bit">
       <a name="label" val="MOR"/>
     </comp>
-    <comp loc="(860,480)" name="InstructionRegister">
+    <comp loc="(860,510)" name="InstructionRegister">
       <a name="label" val="IR"/>
     </comp>
     <comp loc="(860,610)" name="MainMemory"/>
-    <wire from="(100,50)" to="(100,650)"/>
+    <wire from="(100,50)" to="(100,530)"/>
     <wire from="(100,50)" to="(1640,50)"/>
-    <wire from="(100,650)" to="(190,650)"/>
+    <wire from="(100,530)" to="(190,530)"/>
     <wire from="(1000,210)" to="(1000,380)"/>
     <wire from="(1000,210)" to="(1480,210)"/>
     <wire from="(1000,380)" to="(1040,380)"/>
@@ -216,11 +216,11 @@
     <wire from="(1030,840)" to="(1460,840)"/>
     <wire from="(1040,770)" to="(1040,830)"/>
     <wire from="(1040,830)" to="(1450,830)"/>
-    <wire from="(110,60)" to="(110,630)"/>
+    <wire from="(110,510)" to="(190,510)"/>
+    <wire from="(110,60)" to="(110,510)"/>
     <wire from="(110,60)" to="(1630,60)"/>
-    <wire from="(110,630)" to="(190,630)"/>
-    <wire from="(120,500)" to="(190,500)"/>
-    <wire from="(120,70)" to="(120,500)"/>
+    <wire from="(120,420)" to="(190,420)"/>
+    <wire from="(120,70)" to="(120,420)"/>
     <wire from="(120,70)" to="(1620,70)"/>
     <wire from="(1260,280)" to="(1270,280)"/>
     <wire from="(1260,300)" to="(1260,440)"/>
@@ -229,14 +229,13 @@
     <wire from="(1260,650)" to="(1420,650)"/>
     <wire from="(1260,670)" to="(1280,670)"/>
     <wire from="(1270,250)" to="(1270,280)"/>
-    <wire from="(1270,250)" to="(1420,250)"/>
-    <wire from="(130,480)" to="(190,480)"/>
-    <wire from="(130,80)" to="(130,480)"/>
+    <wire from="(130,400)" to="(190,400)"/>
+    <wire from="(130,80)" to="(130,400)"/>
     <wire from="(130,80)" to="(1610,80)"/>
-    <wire from="(140,390)" to="(190,390)"/>
-    <wire from="(140,90)" to="(140,390)"/>
+    <wire from="(140,320)" to="(190,320)"/>
+    <wire from="(140,90)" to="(140,320)"/>
     <wire from="(140,90)" to="(1600,90)"/>
-    <wire from="(1420,250)" to="(1420,650)"/>
+    <wire from="(1420,610)" to="(1420,650)"/>
     <wire from="(1450,240)" to="(1450,520)"/>
     <wire from="(1450,530)" to="(1460,530)"/>
     <wire from="(1450,540)" to="(1470,540)"/>
@@ -258,6 +257,8 @@
     <wire from="(1450,700)" to="(1630,700)"/>
     <wire from="(1450,710)" to="(1640,710)"/>
     <wire from="(1450,720)" to="(1650,720)"/>
+    <wire from="(1450,730)" to="(1660,730)"/>
+    <wire from="(1450,740)" to="(1710,740)"/>
     <wire from="(1450,750)" to="(1520,750)"/>
     <wire from="(1450,760)" to="(1510,760)"/>
     <wire from="(1450,770)" to="(1500,770)"/>
@@ -274,9 +275,9 @@
     <wire from="(1480,790)" to="(1480,860)"/>
     <wire from="(1490,200)" to="(1490,560)"/>
     <wire from="(1490,780)" to="(1490,870)"/>
-    <wire from="(150,100)" to="(150,370)"/>
+    <wire from="(150,100)" to="(150,300)"/>
     <wire from="(150,100)" to="(1590,100)"/>
-    <wire from="(150,370)" to="(190,370)"/>
+    <wire from="(150,300)" to="(190,300)"/>
     <wire from="(1500,190)" to="(1500,570)"/>
     <wire from="(1500,770)" to="(1500,880)"/>
     <wire from="(1510,180)" to="(1510,580)"/>
@@ -298,6 +299,8 @@
     <wire from="(1620,70)" to="(1620,690)"/>
     <wire from="(1630,60)" to="(1630,700)"/>
     <wire from="(1640,50)" to="(1640,710)"/>
+    <wire from="(1650,40)" to="(1650,720)"/>
+    <wire from="(1660,30)" to="(1660,730)"/>
     <wire from="(170,240)" to="(170,670)"/>
     <wire from="(170,240)" to="(880,240)"/>
     <wire from="(170,670)" to="(190,670)"/>
@@ -305,11 +308,11 @@
     <wire from="(170,690)" to="(190,690)"/>
     <wire from="(170,900)" to="(1520,900)"/>
     <wire from="(180,250)" to="(1270,250)"/>
-    <wire from="(180,250)" to="(180,350)"/>
-    <wire from="(180,350)" to="(180,460)"/>
-    <wire from="(180,350)" to="(190,350)"/>
-    <wire from="(180,460)" to="(180,610)"/>
-    <wire from="(180,460)" to="(190,460)"/>
+    <wire from="(180,250)" to="(180,380)"/>
+    <wire from="(180,380)" to="(180,490)"/>
+    <wire from="(180,380)" to="(190,380)"/>
+    <wire from="(180,490)" to="(180,610)"/>
+    <wire from="(180,490)" to="(190,490)"/>
     <wire from="(180,610)" to="(180,760)"/>
     <wire from="(180,610)" to="(190,610)"/>
     <wire from="(180,760)" to="(190,760)"/>
@@ -319,7 +322,9 @@
     <wire from="(190,800)" to="(190,880)"/>
     <wire from="(190,880)" to="(1500,880)"/>
     <wire from="(410,280)" to="(420,280)"/>
+    <wire from="(410,350)" to="(410,380)"/>
     <wire from="(410,350)" to="(420,350)"/>
+    <wire from="(410,460)" to="(410,490)"/>
     <wire from="(410,460)" to="(420,460)"/>
     <wire from="(410,610)" to="(470,610)"/>
     <wire from="(410,630)" to="(420,630)"/>
@@ -338,6 +343,7 @@
     <wire from="(470,610)" to="(640,610)"/>
     <wire from="(520,550)" to="(530,550)"/>
     <wire from="(530,550)" to="(530,580)"/>
+    <wire from="(550,320)" to="(640,320)"/>
     <wire from="(560,120)" to="(1570,120)"/>
     <wire from="(560,120)" to="(560,690)"/>
     <wire from="(560,690)" to="(640,690)"/>
@@ -348,40 +354,51 @@
     <wire from="(580,140)" to="(580,630)"/>
     <wire from="(580,630)" to="(640,630)"/>
     <wire from="(590,150)" to="(1540,150)"/>
-    <wire from="(590,150)" to="(590,520)"/>
-    <wire from="(590,520)" to="(640,520)"/>
+    <wire from="(590,150)" to="(590,550)"/>
+    <wire from="(590,550)" to="(640,550)"/>
     <wire from="(600,160)" to="(1530,160)"/>
-    <wire from="(600,160)" to="(600,500)"/>
-    <wire from="(600,500)" to="(640,500)"/>
+    <wire from="(600,160)" to="(600,530)"/>
+    <wire from="(600,530)" to="(640,530)"/>
     <wire from="(610,170)" to="(1520,170)"/>
-    <wire from="(610,170)" to="(610,420)"/>
-    <wire from="(610,420)" to="(640,420)"/>
+    <wire from="(610,170)" to="(610,450)"/>
+    <wire from="(610,450)" to="(640,450)"/>
     <wire from="(620,180)" to="(1510,180)"/>
-    <wire from="(620,180)" to="(620,400)"/>
-    <wire from="(620,400)" to="(640,400)"/>
+    <wire from="(620,180)" to="(620,430)"/>
+    <wire from="(620,430)" to="(640,430)"/>
     <wire from="(630,190)" to="(1500,190)"/>
-    <wire from="(630,190)" to="(630,320)"/>
-    <wire from="(630,320)" to="(640,320)"/>
-    <wire from="(630,380)" to="(630,480)"/>
-    <wire from="(630,380)" to="(640,380)"/>
-    <wire from="(630,480)" to="(630,570)"/>
-    <wire from="(630,480)" to="(640,480)"/>
-    <wire from="(630,570)" to="(860,570)"/>
-    <wire from="(860,320)" to="(870,320)"/>
-    <wire from="(860,380)" to="(870,380)"/>
-    <wire from="(860,480)" to="(870,480)"/>
-    <wire from="(860,500)" to="(990,500)"/>
-    <wire from="(860,570)" to="(860,610)"/>
+    <wire from="(630,190)" to="(630,350)"/>
+    <wire from="(630,350)" to="(640,350)"/>
+    <wire from="(630,410)" to="(630,510)"/>
+    <wire from="(630,410)" to="(640,410)"/>
+    <wire from="(630,510)" to="(630,590)"/>
+    <wire from="(630,510)" to="(640,510)"/>
+    <wire from="(630,590)" to="(860,590)"/>
+    <wire from="(640,310)" to="(640,320)"/>
+    <wire from="(640,320)" to="(640,330)"/>
+    <wire from="(80,30)" to="(1660,30)"/>
+    <wire from="(80,30)" to="(80,650)"/>
+    <wire from="(80,650)" to="(190,650)"/>
+    <wire from="(860,310)" to="(870,310)"/>
+    <wire from="(860,410)" to="(870,410)"/>
+    <wire from="(860,510)" to="(870,510)"/>
+    <wire from="(860,520)" to="(860,530)"/>
+    <wire from="(860,520)" to="(990,520)"/>
+    <wire from="(860,590)" to="(860,610)"/>
     <wire from="(860,730)" to="(1040,730)"/>
     <wire from="(860,730)" to="(860,780)"/>
-    <wire from="(870,300)" to="(870,320)"/>
+    <wire from="(870,300)" to="(870,310)"/>
     <wire from="(870,300)" to="(920,300)"/>
-    <wire from="(870,320)" to="(870,380)"/>
-    <wire from="(870,380)" to="(870,480)"/>
-    <wire from="(870,480)" to="(870,630)"/>
+    <wire from="(870,310)" to="(870,410)"/>
+    <wire from="(870,410)" to="(870,510)"/>
+    <wire from="(870,510)" to="(870,610)"/>
+    <wire from="(870,610)" to="(1420,610)"/>
+    <wire from="(870,610)" to="(870,630)"/>
     <wire from="(870,630)" to="(1040,630)"/>
     <wire from="(880,240)" to="(880,530)"/>
     <wire from="(880,530)" to="(1040,530)"/>
+    <wire from="(90,40)" to="(1650,40)"/>
+    <wire from="(90,40)" to="(90,630)"/>
+    <wire from="(90,630)" to="(190,630)"/>
     <wire from="(90,670)" to="(170,670)"/>
     <wire from="(920,220)" to="(920,300)"/>
     <wire from="(920,300)" to="(1040,300)"/>
@@ -394,6 +411,7 @@
     <wire from="(990,400)" to="(1040,400)"/>
     <wire from="(990,470)" to="(990,480)"/>
     <wire from="(990,480)" to="(990,490)"/>
+    <wire from="(990,500)" to="(990,520)"/>
     <wire from="(990,690)" to="(1040,690)"/>
   </circuit>
   <circuit name="Register16bit">
@@ -690,28 +708,42 @@
     <wire from="(580,420)" to="(580,810)"/>
     <wire from="(580,420)" to="(590,420)"/>
   </circuit>
-  <circuit name="ZeroRegister">
+  <circuit name="ImmediateGenerator">
     <a name="appearance" val="logisim_evolution"/>
-    <a name="circuit" val="ZeroRegister"/>
+    <a name="circuit" val="ImmediateGenerator"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
-    <comp lib="0" loc="(220,370)" name="Pin">
+    <comp lib="0" loc="(390,190)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="IMM_0"/>
+    </comp>
+    <comp lib="0" loc="(390,220)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="IMM_Sign"/>
+    </comp>
+    <comp lib="0" loc="(400,370)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="label" val="OE_LO"/>
     </comp>
-    <comp lib="0" loc="(260,240)" name="Pull Resistor">
-      <a name="facing" val="east"/>
+    <comp lib="0" loc="(440,240)" name="Splitter">
+      <a name="appear" val="center"/>
+      <a name="facing" val="west"/>
+      <a name="fanout" val="8"/>
+      <a name="incoming" val="8"/>
     </comp>
-    <comp lib="0" loc="(260,330)" name="Pull Resistor">
-      <a name="facing" val="east"/>
+    <comp lib="0" loc="(440,330)" name="Splitter">
+      <a name="appear" val="center"/>
+      <a name="facing" val="west"/>
+      <a name="fanout" val="8"/>
+      <a name="incoming" val="8"/>
     </comp>
-    <comp lib="0" loc="(500,230)" name="Pin">
+    <comp lib="0" loc="(700,230)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="type" val="output"/>
       <a name="width" val="16"/>
     </comp>
-    <comp lib="0" loc="(500,230)" name="Splitter">
+    <comp lib="0" loc="(700,230)" name="Splitter">
       <a name="bit1" val="0"/>
       <a name="bit10" val="1"/>
       <a name="bit11" val="1"/>
@@ -731,16 +763,39 @@
       <a name="incoming" val="16"/>
       <a name="spacing" val="9"/>
     </comp>
-    <comp lib="12" loc="(480,240)" name="EightBitBuffer"/>
-    <comp lib="12" loc="(480,330)" name="EightBitBuffer"/>
-    <wire from="(220,370)" to="(250,370)"/>
-    <wire from="(250,260)" to="(250,280)"/>
-    <wire from="(250,260)" to="(260,260)"/>
-    <wire from="(250,280)" to="(250,350)"/>
-    <wire from="(250,280)" to="(260,280)"/>
-    <wire from="(250,350)" to="(250,370)"/>
-    <wire from="(250,350)" to="(260,350)"/>
-    <wire from="(250,370)" to="(260,370)"/>
+    <comp lib="12" loc="(680,240)" name="EightBitBuffer"/>
+    <comp lib="12" loc="(680,330)" name="EightBitBuffer"/>
+    <wire from="(390,190)" to="(400,190)"/>
+    <wire from="(390,220)" to="(400,220)"/>
+    <wire from="(400,190)" to="(400,200)"/>
+    <wire from="(400,200)" to="(420,200)"/>
+    <wire from="(400,210)" to="(400,220)"/>
+    <wire from="(400,210)" to="(420,210)"/>
+    <wire from="(400,370)" to="(450,370)"/>
+    <wire from="(420,210)" to="(420,220)"/>
+    <wire from="(420,220)" to="(420,230)"/>
+    <wire from="(420,230)" to="(420,240)"/>
+    <wire from="(420,240)" to="(420,250)"/>
+    <wire from="(420,250)" to="(420,260)"/>
+    <wire from="(420,260)" to="(420,270)"/>
+    <wire from="(420,270)" to="(420,290)"/>
+    <wire from="(420,290)" to="(420,300)"/>
+    <wire from="(420,300)" to="(420,310)"/>
+    <wire from="(420,310)" to="(420,320)"/>
+    <wire from="(420,320)" to="(420,330)"/>
+    <wire from="(420,330)" to="(420,340)"/>
+    <wire from="(420,340)" to="(420,350)"/>
+    <wire from="(420,350)" to="(420,360)"/>
+    <wire from="(440,240)" to="(460,240)"/>
+    <wire from="(440,330)" to="(460,330)"/>
+    <wire from="(450,260)" to="(450,280)"/>
+    <wire from="(450,260)" to="(460,260)"/>
+    <wire from="(450,280)" to="(450,350)"/>
+    <wire from="(450,280)" to="(460,280)"/>
+    <wire from="(450,350)" to="(450,370)"/>
+    <wire from="(450,350)" to="(460,350)"/>
+    <wire from="(450,370)" to="(460,370)"/>
+    <wire from="(460,240)" to="(470,240)"/>
   </circuit>
   <circuit name="InstructionRegister">
     <a name="appearance" val="logisim_evolution"/>
@@ -874,26 +929,6 @@
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
     <comp lib="0" loc="(1020,160)" name="Splitter">
-      <a name="appear" val="right"/>
-      <a name="bit1" val="0"/>
-      <a name="bit10" val="1"/>
-      <a name="bit11" val="1"/>
-      <a name="bit12" val="1"/>
-      <a name="bit13" val="1"/>
-      <a name="bit14" val="1"/>
-      <a name="bit15" val="1"/>
-      <a name="bit2" val="0"/>
-      <a name="bit3" val="0"/>
-      <a name="bit4" val="0"/>
-      <a name="bit5" val="0"/>
-      <a name="bit6" val="0"/>
-      <a name="bit7" val="0"/>
-      <a name="bit8" val="1"/>
-      <a name="bit9" val="1"/>
-      <a name="incoming" val="16"/>
-      <a name="spacing" val="9"/>
-    </comp>
-    <comp lib="0" loc="(1020,160)" name="Splitter">
       <a name="bit1" val="0"/>
       <a name="bit10" val="2"/>
       <a name="bit11" val="2"/>
@@ -913,6 +948,26 @@
       <a name="fanout" val="4"/>
       <a name="incoming" val="16"/>
     </comp>
+    <comp lib="0" loc="(1020,160)" name="Splitter">
+      <a name="appear" val="right"/>
+      <a name="bit1" val="0"/>
+      <a name="bit10" val="1"/>
+      <a name="bit11" val="1"/>
+      <a name="bit12" val="1"/>
+      <a name="bit13" val="1"/>
+      <a name="bit14" val="1"/>
+      <a name="bit15" val="1"/>
+      <a name="bit2" val="0"/>
+      <a name="bit3" val="0"/>
+      <a name="bit4" val="0"/>
+      <a name="bit5" val="0"/>
+      <a name="bit6" val="0"/>
+      <a name="bit7" val="0"/>
+      <a name="bit8" val="1"/>
+      <a name="bit9" val="1"/>
+      <a name="incoming" val="16"/>
+      <a name="spacing" val="9"/>
+    </comp>
     <comp lib="0" loc="(1050,500)" name="Pull Resistor">
       <a name="facing" val="east"/>
     </comp>
@@ -924,6 +979,9 @@
       <a name="facing" val="west"/>
       <a name="fanout" val="8"/>
       <a name="incoming" val="8"/>
+    </comp>
+    <comp lib="0" loc="(1300,80)" name="Probe">
+      <a name="appearance" val="classic"/>
     </comp>
     <comp lib="0" loc="(1310,160)" name="Splitter">
       <a name="bit1" val="0"/>
@@ -999,26 +1057,6 @@
       <a name="spacing" val="2"/>
     </comp>
     <comp lib="0" loc="(1750,160)" name="Splitter">
-      <a name="appear" val="right"/>
-      <a name="bit1" val="0"/>
-      <a name="bit10" val="1"/>
-      <a name="bit11" val="1"/>
-      <a name="bit12" val="1"/>
-      <a name="bit13" val="1"/>
-      <a name="bit14" val="1"/>
-      <a name="bit15" val="1"/>
-      <a name="bit2" val="0"/>
-      <a name="bit3" val="0"/>
-      <a name="bit4" val="0"/>
-      <a name="bit5" val="0"/>
-      <a name="bit6" val="0"/>
-      <a name="bit7" val="0"/>
-      <a name="bit8" val="1"/>
-      <a name="bit9" val="1"/>
-      <a name="incoming" val="16"/>
-      <a name="spacing" val="9"/>
-    </comp>
-    <comp lib="0" loc="(1750,160)" name="Splitter">
       <a name="bit1" val="0"/>
       <a name="bit10" val="2"/>
       <a name="bit11" val="2"/>
@@ -1037,6 +1075,26 @@
       <a name="facing" val="west"/>
       <a name="fanout" val="4"/>
       <a name="incoming" val="16"/>
+    </comp>
+    <comp lib="0" loc="(1750,160)" name="Splitter">
+      <a name="appear" val="right"/>
+      <a name="bit1" val="0"/>
+      <a name="bit10" val="1"/>
+      <a name="bit11" val="1"/>
+      <a name="bit12" val="1"/>
+      <a name="bit13" val="1"/>
+      <a name="bit14" val="1"/>
+      <a name="bit15" val="1"/>
+      <a name="bit2" val="0"/>
+      <a name="bit3" val="0"/>
+      <a name="bit4" val="0"/>
+      <a name="bit5" val="0"/>
+      <a name="bit6" val="0"/>
+      <a name="bit7" val="0"/>
+      <a name="bit8" val="1"/>
+      <a name="bit9" val="1"/>
+      <a name="incoming" val="16"/>
+      <a name="spacing" val="9"/>
     </comp>
     <comp lib="0" loc="(2040,160)" name="Splitter">
       <a name="bit1" val="0"/>
@@ -1101,6 +1159,26 @@
       <a name="spacing" val="2"/>
     </comp>
     <comp lib="0" loc="(2470,160)" name="Splitter">
+      <a name="appear" val="right"/>
+      <a name="bit1" val="0"/>
+      <a name="bit10" val="1"/>
+      <a name="bit11" val="1"/>
+      <a name="bit12" val="1"/>
+      <a name="bit13" val="1"/>
+      <a name="bit14" val="1"/>
+      <a name="bit15" val="1"/>
+      <a name="bit2" val="0"/>
+      <a name="bit3" val="0"/>
+      <a name="bit4" val="0"/>
+      <a name="bit5" val="0"/>
+      <a name="bit6" val="0"/>
+      <a name="bit7" val="0"/>
+      <a name="bit8" val="1"/>
+      <a name="bit9" val="1"/>
+      <a name="incoming" val="16"/>
+      <a name="spacing" val="9"/>
+    </comp>
+    <comp lib="0" loc="(2470,160)" name="Splitter">
       <a name="bit1" val="0"/>
       <a name="bit10" val="2"/>
       <a name="bit11" val="2"/>
@@ -1120,7 +1198,15 @@
       <a name="fanout" val="4"/>
       <a name="incoming" val="16"/>
     </comp>
-    <comp lib="0" loc="(2470,160)" name="Splitter">
+    <comp lib="0" loc="(2750,370)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="ALU_CP_RE"/>
+    </comp>
+    <comp lib="0" loc="(2750,400)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="ALU_ROR_HI"/>
+    </comp>
+    <comp lib="0" loc="(2760,160)" name="Splitter">
       <a name="appear" val="right"/>
       <a name="bit1" val="0"/>
       <a name="bit10" val="1"/>
@@ -1139,14 +1225,6 @@
       <a name="bit9" val="1"/>
       <a name="incoming" val="16"/>
       <a name="spacing" val="9"/>
-    </comp>
-    <comp lib="0" loc="(2750,370)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="label" val="ALU_CP_RE"/>
-    </comp>
-    <comp lib="0" loc="(2750,400)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="label" val="ALU_OE_LO"/>
     </comp>
     <comp lib="0" loc="(2760,160)" name="Splitter">
       <a name="bit1" val="0"/>
@@ -1168,25 +1246,8 @@
       <a name="incoming" val="16"/>
       <a name="spacing" val="9"/>
     </comp>
-    <comp lib="0" loc="(2760,160)" name="Splitter">
-      <a name="appear" val="right"/>
-      <a name="bit1" val="0"/>
-      <a name="bit10" val="1"/>
-      <a name="bit11" val="1"/>
-      <a name="bit12" val="1"/>
-      <a name="bit13" val="1"/>
-      <a name="bit14" val="1"/>
-      <a name="bit15" val="1"/>
-      <a name="bit2" val="0"/>
-      <a name="bit3" val="0"/>
-      <a name="bit4" val="0"/>
-      <a name="bit5" val="0"/>
-      <a name="bit6" val="0"/>
-      <a name="bit7" val="0"/>
-      <a name="bit8" val="1"/>
-      <a name="bit9" val="1"/>
-      <a name="incoming" val="16"/>
-      <a name="spacing" val="9"/>
+    <comp lib="0" loc="(2780,280)" name="Pull Resistor">
+      <a name="facing" val="east"/>
     </comp>
     <comp lib="0" loc="(290,140)" name="Pin">
       <a name="appearance" val="classic"/>
@@ -1206,14 +1267,58 @@
       <a name="appearance" val="classic"/>
       <a name="label" val="FN_SEL_1"/>
     </comp>
-    <comp lib="0" loc="(3050,270)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="facing" val="west"/>
-      <a name="label" val="ARR"/>
-      <a name="type" val="output"/>
-      <a name="width" val="16"/>
+    <comp lib="0" loc="(3040,360)" name="Splitter">
+      <a name="appear" val="center"/>
+      <a name="bit2" val="1"/>
+      <a name="bit3" val="1"/>
+      <a name="bit4" val="1"/>
+      <a name="bit5" val="1"/>
+      <a name="bit6" val="1"/>
+      <a name="bit7" val="1"/>
+      <a name="incoming" val="8"/>
     </comp>
-    <comp lib="0" loc="(3050,270)" name="Splitter">
+    <comp lib="0" loc="(3050,450)" name="Splitter">
+      <a name="appear" val="center"/>
+      <a name="bit0" val="1"/>
+      <a name="bit2" val="1"/>
+      <a name="bit3" val="1"/>
+      <a name="bit4" val="1"/>
+      <a name="bit5" val="1"/>
+      <a name="bit6" val="1"/>
+      <a name="bit7" val="0"/>
+      <a name="incoming" val="8"/>
+    </comp>
+    <comp lib="0" loc="(310,700)" name="Pull Resistor">
+      <a name="facing" val="east"/>
+    </comp>
+    <comp lib="0" loc="(3110,360)" name="Splitter">
+      <a name="appear" val="center"/>
+      <a name="bit2" val="1"/>
+      <a name="bit3" val="1"/>
+      <a name="bit4" val="1"/>
+      <a name="bit5" val="1"/>
+      <a name="bit6" val="1"/>
+      <a name="bit7" val="1"/>
+      <a name="facing" val="west"/>
+      <a name="incoming" val="8"/>
+    </comp>
+    <comp lib="0" loc="(3120,450)" name="Splitter">
+      <a name="appear" val="center"/>
+      <a name="bit0" val="1"/>
+      <a name="bit2" val="1"/>
+      <a name="bit3" val="1"/>
+      <a name="bit4" val="1"/>
+      <a name="bit5" val="1"/>
+      <a name="bit6" val="1"/>
+      <a name="bit7" val="0"/>
+      <a name="facing" val="west"/>
+      <a name="incoming" val="8"/>
+    </comp>
+    <comp lib="0" loc="(320,740)" name="Pull Resistor">
+      <a name="facing" val="east"/>
+      <a name="pull" val="1"/>
+    </comp>
+    <comp lib="0" loc="(3360,270)" name="Splitter">
       <a name="appear" val="right"/>
       <a name="bit1" val="0"/>
       <a name="bit10" val="1"/>
@@ -1234,12 +1339,25 @@
       <a name="incoming" val="16"/>
       <a name="spacing" val="9"/>
     </comp>
-    <comp lib="0" loc="(310,700)" name="Pull Resistor">
-      <a name="facing" val="east"/>
-    </comp>
-    <comp lib="0" loc="(320,740)" name="Pull Resistor">
-      <a name="facing" val="east"/>
-      <a name="pull" val="1"/>
+    <comp lib="0" loc="(3360,350)" name="Splitter">
+      <a name="bit1" val="0"/>
+      <a name="bit10" val="1"/>
+      <a name="bit11" val="1"/>
+      <a name="bit12" val="1"/>
+      <a name="bit13" val="1"/>
+      <a name="bit14" val="1"/>
+      <a name="bit15" val="1"/>
+      <a name="bit2" val="0"/>
+      <a name="bit3" val="0"/>
+      <a name="bit4" val="0"/>
+      <a name="bit5" val="0"/>
+      <a name="bit6" val="0"/>
+      <a name="bit7" val="0"/>
+      <a name="bit8" val="1"/>
+      <a name="bit9" val="1"/>
+      <a name="facing" val="west"/>
+      <a name="incoming" val="16"/>
+      <a name="spacing" val="9"/>
     </comp>
     <comp lib="0" loc="(340,170)" name="Splitter">
       <a name="appear" val="right"/>
@@ -1260,6 +1378,13 @@
       <a name="bit9" val="2"/>
       <a name="fanout" val="4"/>
       <a name="incoming" val="16"/>
+    </comp>
+    <comp lib="0" loc="(3410,310)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="ARR"/>
+      <a name="type" val="output"/>
+      <a name="width" val="16"/>
     </comp>
     <comp lib="0" loc="(370,500)" name="Splitter">
       <a name="facing" val="west"/>
@@ -1307,6 +1432,7 @@
     </comp>
     <comp lib="0" loc="(980,580)" name="NoConnect"/>
     <comp lib="0" loc="(980,590)" name="NoConnect"/>
+    <comp lib="1" loc="(2980,400)" name="NOT Gate"/>
     <comp lib="12" loc="(1290,170)" name="EightBitBuffer"/>
     <comp lib="12" loc="(1290,260)" name="EightBitBuffer"/>
     <comp lib="12" loc="(1330,410)" name="EightBitLatch"/>
@@ -1322,8 +1448,12 @@
     <comp lib="12" loc="(2410,470)" name="Eor"/>
     <comp lib="12" loc="(2740,170)" name="EightBitBuffer"/>
     <comp lib="12" loc="(2740,260)" name="EightBitBuffer"/>
-    <comp lib="12" loc="(3030,170)" name="EightBitRegister"/>
-    <comp lib="12" loc="(3030,260)" name="EightBitRegister"/>
+    <comp lib="12" loc="(3030,170)" name="EightBitLatch"/>
+    <comp lib="12" loc="(3030,260)" name="EightBitLatch"/>
+    <comp lib="12" loc="(3340,170)" name="EightBitBuffer"/>
+    <comp lib="12" loc="(3340,260)" name="EightBitBuffer"/>
+    <comp lib="12" loc="(3340,360)" name="EightBitBuffer"/>
+    <comp lib="12" loc="(3340,450)" name="EightBitBuffer"/>
     <comp lib="12" loc="(540,640)" name="EightOneDecoderInverted"/>
     <comp lib="12" loc="(630,180)" name="Eor"/>
     <comp lib="12" loc="(630,280)" name="Eor"/>
@@ -1351,8 +1481,11 @@
     <wire from="(1090,430)" to="(1110,430)"/>
     <wire from="(1100,450)" to="(1100,660)"/>
     <wire from="(1100,450)" to="(1110,450)"/>
+    <wire from="(1300,80)" to="(1320,80)"/>
     <wire from="(1310,150)" to="(1310,160)"/>
-    <wire from="(1310,150)" to="(2040,150)"/>
+    <wire from="(1310,150)" to="(1320,150)"/>
+    <wire from="(1320,150)" to="(2040,150)"/>
+    <wire from="(1320,80)" to="(1320,150)"/>
     <wire from="(1340,140)" to="(1340,170)"/>
     <wire from="(1340,140)" to="(2060,140)"/>
     <wire from="(1350,490)" to="(1360,490)"/>
@@ -1450,25 +1583,45 @@
     <wire from="(2510,300)" to="(2520,300)"/>
     <wire from="(2510,350)" to="(2600,350)"/>
     <wire from="(2600,350)" to="(2600,700)"/>
-    <wire from="(2750,370)" to="(2800,370)"/>
-    <wire from="(2750,400)" to="(2790,400)"/>
+    <wire from="(2750,370)" to="(2790,370)"/>
+    <wire from="(2750,400)" to="(2930,400)"/>
     <wire from="(2760,150)" to="(2760,160)"/>
     <wire from="(2780,170)" to="(2810,170)"/>
     <wire from="(2780,260)" to="(2810,260)"/>
+    <wire from="(2780,280)" to="(2800,280)"/>
     <wire from="(2790,210)" to="(2790,300)"/>
     <wire from="(2790,210)" to="(2810,210)"/>
-    <wire from="(2790,300)" to="(2790,400)"/>
+    <wire from="(2790,300)" to="(2790,370)"/>
     <wire from="(2790,300)" to="(2810,300)"/>
     <wire from="(2800,190)" to="(2800,280)"/>
     <wire from="(2800,190)" to="(2810,190)"/>
-    <wire from="(2800,280)" to="(2800,370)"/>
     <wire from="(2800,280)" to="(2810,280)"/>
     <wire from="(290,140)" to="(640,140)"/>
     <wire from="(290,190)" to="(300,190)"/>
+    <wire from="(2930,380)" to="(2930,400)"/>
+    <wire from="(2930,380)" to="(3100,380)"/>
+    <wire from="(2930,400)" to="(2950,400)"/>
+    <wire from="(2980,400)" to="(3110,400)"/>
     <wire from="(300,150)" to="(300,190)"/>
     <wire from="(300,150)" to="(340,150)"/>
     <wire from="(300,630)" to="(310,630)"/>
     <wire from="(300,660)" to="(320,660)"/>
+    <wire from="(3030,170)" to="(3040,170)"/>
+    <wire from="(3030,260)" to="(3030,450)"/>
+    <wire from="(3030,260)" to="(3120,260)"/>
+    <wire from="(3030,450)" to="(3050,450)"/>
+    <wire from="(3040,170)" to="(3040,360)"/>
+    <wire from="(3040,170)" to="(3120,170)"/>
+    <wire from="(3060,350)" to="(3070,350)"/>
+    <wire from="(3060,360)" to="(3090,360)"/>
+    <wire from="(3070,350)" to="(3070,410)"/>
+    <wire from="(3070,410)" to="(3090,410)"/>
+    <wire from="(3070,440)" to="(3080,440)"/>
+    <wire from="(3070,450)" to="(3100,450)"/>
+    <wire from="(3080,350)" to="(3080,440)"/>
+    <wire from="(3080,350)" to="(3090,350)"/>
+    <wire from="(3090,410)" to="(3090,440)"/>
+    <wire from="(3090,440)" to="(3100,440)"/>
     <wire from="(310,630)" to="(310,640)"/>
     <wire from="(310,640)" to="(320,640)"/>
     <wire from="(310,680)" to="(310,700)"/>
@@ -1476,9 +1629,30 @@
     <wire from="(310,700)" to="(310,720)"/>
     <wire from="(310,700)" to="(320,700)"/>
     <wire from="(310,720)" to="(320,720)"/>
+    <wire from="(3100,190)" to="(3100,210)"/>
+    <wire from="(3100,190)" to="(3120,190)"/>
+    <wire from="(3100,210)" to="(3100,280)"/>
+    <wire from="(3100,210)" to="(3120,210)"/>
+    <wire from="(3100,280)" to="(3100,300)"/>
+    <wire from="(3100,280)" to="(3120,280)"/>
+    <wire from="(3100,300)" to="(3100,380)"/>
+    <wire from="(3100,300)" to="(3120,300)"/>
+    <wire from="(3110,360)" to="(3120,360)"/>
+    <wire from="(3110,380)" to="(3110,400)"/>
+    <wire from="(3110,380)" to="(3120,380)"/>
+    <wire from="(3110,400)" to="(3110,470)"/>
+    <wire from="(3110,400)" to="(3120,400)"/>
+    <wire from="(3110,470)" to="(3110,490)"/>
+    <wire from="(3110,470)" to="(3120,470)"/>
+    <wire from="(3110,490)" to="(3120,490)"/>
+    <wire from="(3120,400)" to="(3130,400)"/>
+    <wire from="(3120,490)" to="(3130,490)"/>
     <wire from="(330,540)" to="(330,560)"/>
     <wire from="(330,540)" to="(350,540)"/>
     <wire from="(330,560)" to="(670,560)"/>
+    <wire from="(3360,270)" to="(3360,310)"/>
+    <wire from="(3360,310)" to="(3360,350)"/>
+    <wire from="(3360,310)" to="(3410,310)"/>
     <wire from="(340,130)" to="(1370,130)"/>
     <wire from="(340,130)" to="(340,150)"/>
     <wire from="(340,150)" to="(340,170)"/>
@@ -1865,6 +2039,9 @@
       <a name="facing" val="west"/>
       <a name="incoming" val="16"/>
     </comp>
+    <comp lib="0" loc="(810,180)" name="Probe">
+      <a name="appearance" val="classic"/>
+    </comp>
     <comp lib="0" loc="(810,330)" name="Splitter">
       <a name="bit1" val="0"/>
       <a name="bit10" val="1"/>
@@ -1919,199 +2096,215 @@
       <a name="addrWidth" val="16"/>
       <a name="appearance" val="classic"/>
       <a name="contents">addr/data: 16 32
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 aa8680a2 aa8680b1 2a86e2a0 11*aa86a2a2 aa8ea3a2 aa8aa2a2
-aa8680a2 aa8680b1 2a86e2a0 235*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2
-14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2
-aa8aa2a2 238*aa86a2a2 aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
-aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 aa8680a0 aa8680a1 2a86e2a0 11*aa86a2a0 aa8ea3a0 aa8aa2a0
+aa8680a0 aa8680a1 2a86e2a0 235*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8620a0 aa8620a1
+2a86e2a0 11*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8620a0 aa8620a1 2a86e2a0 235*aa86a2a0
+aa8ea3a0 aa8aa2a0 aa84a0a0 aa84a0a1 2a86e2a0 11*aa86a2a0 aa8ea3a0 aa8aa2a0
+aa84a0a0 aa84a0a1 2a86e2a0 235*aa86a2a0 aa8ea3a0 aa8aa2a0 aa06a0a0 aa06a0a1
+2a86e2a0 11*aa86a2a0 aa8ea3a0 aa8aa2a0 aa06a0a0 aa06a0a1 2a86e2a0 235*aa86a2a0
+aa8ea3a0 aa8aa2a0 aa8680a0 aa8680a1 2a87a2a0 11*aa86a2a0 aa8ea3a0 aa8aa2a0
+aa8680a0 aa8680a1 2a87a2a0 235*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8620a0 aa8620a1
+2a87a2a0 11*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8620a0 aa8620a1 2a87a2a0 235*aa86a2a0
+aa8ea3a0 aa8aa2a0 aa84a0a0 aa84a0a1 2a87a2a0 11*aa86a2a0 aa8ea3a0 aa8aa2a0
+aa84a0a0 aa84a0a1 2a87a2a0 235*aa86a2a0 aa8ea3a0 aa8aa2a0 aa06a0a0 aa06a0a1
+2a87a2a0 11*aa86a2a0 aa8ea3a0 aa8aa2a0 aa06a0a0 aa06a0a1 2a87a2a0 235*aa86a2a0
+aa8ea3a0 aa8aa2a0 aa8680a0 aa8680a1 2a82a2a0 11*aa86a2a0 aa8ea3a0 aa8aa2a0
+aa8680a0 aa8680a1 2a82a2a0 235*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8620a0 aa8620a1
+2a82a2a0 11*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8620a0 aa8620a1 2a82a2a0 235*aa86a2a0
+aa8ea3a0 aa8aa2a0 aa84a0a0 aa84a0a1 2a82a2a0 11*aa86a2a0 aa8ea3a0 aa8aa2a0
+aa84a0a0 aa84a0a1 2a82a2a0 235*aa86a2a0 aa8ea3a0 aa8aa2a0 aa06a0a0 aa06a0a1
+2a82a2a0 11*aa86a2a0 aa8ea3a0 aa8aa2a0 aa06a0a0 aa06a0a1 2a82a2a0 235*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 aa8ea3a0 aa8aa2a0 12*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8680a0
+aa8680a1 2a86e2a0 235*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8ea3a0 aa8aa2a0 12*aa86a2a0
+aa8ea3a0 aa8aa2a0 aa8620a0 aa8620a1 2a86e2a0 235*aa86a2a0 aa8ea3a0 aa8aa2a0
+aa8ea3a0 aa8aa2a0 12*aa86a2a0 aa8ea3a0 aa8aa2a0 aa84a0a0 aa84a0a1 2a86e2a0
+235*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8ea3a0 aa8aa2a0 12*aa86a2a0 aa8ea3a0 aa8aa2a0
+aa06a0a0 aa06a0a1 2a86e2a0 235*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8ea3a0 aa8aa2a0
+12*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8680a0 aa8680a1 2a87a2a0 235*aa86a2a0 aa8ea3a0
+aa8aa2a0 aa8ea3a0 aa8aa2a0 12*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8620a0 aa8620a1
+2a87a2a0 235*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8ea3a0 aa8aa2a0 12*aa86a2a0 aa8ea3a0
+aa8aa2a0 aa84a0a0 aa84a0a1 2a87a2a0 235*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8ea3a0
+aa8aa2a0 12*aa86a2a0 aa8ea3a0 aa8aa2a0 aa06a0a0 aa06a0a1 2a87a2a0 235*aa86a2a0
+aa8ea3a0 aa8aa2a0 aa8ea3a0 aa8aa2a0 12*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8680a0
+aa8680a1 2a82a2a0 235*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8ea3a0 aa8aa2a0 12*aa86a2a0
+aa8ea3a0 aa8aa2a0 aa8620a0 aa8620a1 2a82a2a0 235*aa86a2a0 aa8ea3a0 aa8aa2a0
+aa8ea3a0 aa8aa2a0 12*aa86a2a0 aa8ea3a0 aa8aa2a0 aa84a0a0 aa84a0a1 2a82a2a0
+235*aa86a2a0 aa8ea3a0 aa8aa2a0 aa8ea3a0 aa8aa2a0 12*aa86a2a0 aa8ea3a0 aa8aa2a0
+aa06a0a0 aa06a0a1 2a82a2a0 235*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0
+aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
+aa8ea3a0 aa8aa2a0 14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0 aa8ea3a0 aa8aa2a0
+14*aa86a2a0 aa8ea3a0 aa8aa2a0 238*aa86a2a0
 </a>
       <a name="dataWidth" val="32"/>
     </comp>
@@ -2147,7 +2340,12 @@ aa8ea3a2 aa8aa2a2 14*aa86a2a2 aa8ea3a2 aa8aa2a2 238*aa86a2a2
     <wire from="(450,300)" to="(450,430)"/>
     <wire from="(450,300)" to="(460,300)"/>
     <wire from="(480,280)" to="(530,280)"/>
-    <wire from="(770,330)" to="(810,330)"/>
+    <wire from="(770,330)" to="(790,330)"/>
+    <wire from="(790,230)" to="(790,330)"/>
+    <wire from="(790,230)" to="(820,230)"/>
+    <wire from="(790,330)" to="(810,330)"/>
+    <wire from="(810,180)" to="(820,180)"/>
+    <wire from="(820,180)" to="(820,230)"/>
     <wire from="(830,290)" to="(890,290)"/>
     <wire from="(830,300)" to="(860,300)"/>
     <wire from="(830,310)" to="(850,310)"/>

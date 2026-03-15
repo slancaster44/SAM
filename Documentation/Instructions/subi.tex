@@ -1,0 +1,69 @@
+\pagebreak
+\subsection{Subtract Immediate}
+\verb|subi DR,SR,IMM|
+\subsubsection{Encoding}
+This instruction will use the RRI format. 
+The operation field (OP) wil be $0001_2$
+
+\begin{center}
+    \begin{tabular}{|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|}
+        \hline
+        \textbf{15} & \textbf{14} & \textbf{13} &
+        \textbf{12} & \textbf{11} & \textbf{10} & \textbf{9} &
+        \textbf{8} & \textbf{7} & \textbf{6} & \textbf{5} &
+        \textbf{4} & \textbf{3} & \textbf{2} & \textbf{1} &
+        \textbf{0} \\
+
+        \hline
+        \multicolumn{1}{|c|}{0} & 
+        \multicolumn{1}{c|}{0} & 
+        \multicolumn{1}{c|}{0} & 
+        \multicolumn{1}{c|}{1} & 
+        \multicolumn{2}{c|}{DST} &
+        \multicolumn{2}{c|}{SRC} & 
+        \multicolumn{8}{c|}{IMM} \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsubsection{Operation}
+$DR \leftarrow SR - SignExtend(IMM)$
+\par 
+Subtract the the sign-extended immediate (IMM) from the contents of the source register (SR).
+Latch the overflow into the link register.
+Place the result into the destination register (DR).
+
+\subsubsection{Associated Pseudo-Instructions}
+The assembler will provide `pseudo-instructions' for the programmer's convenience.
+
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Name & Syntax & Equivalent \\
+        \hline
+        Compare Immediate & \verb|cmp IMM| & \verb|subi zr,ac,IMM| \\
+        \hline
+        Set Link & \verb|sel| & \verb|subi zr,zr,0| \\
+        \hline
+        Clear Link & \verb|cll| & \verb|subi zr,zr,1| \\
+        \hline
+        Load Immediate & \verb|ld IMM| & \verb|subi ac,zr,TwosComplement(IMM)| \\
+        \hline
+        Clear & \verb|clr| & \verb|subi ac,zr,0| \\
+        \hline
+        Move & \verb|mov DR,SR| & \verb|subi DR,SR,0| \\
+        \hline
+        Increment & \verb|inc| & \verb|subi ac,ac,-1| \\
+        \hline
+        Decrement & \verb|dec| & \verb|subi ac,ac,1| \\
+        \hline
+        Jump Relative & \verb|jr OFFSET| & \verb|subi pc,pc,OFFSET| \\
+        \hline
+        Jump & \verb|jmp| & \verb|subi pc,ac,0| \\
+        \hline
+        Reset & \verb|rst| & \verb|subi pc,zr,0|\\
+        \hline
+        Halt & \verb|hlt| & \verb|subi pc,pc,1| \\
+        \hline
+    \end{tabular}
+\end{center}

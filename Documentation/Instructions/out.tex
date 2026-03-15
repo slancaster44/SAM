@@ -1,0 +1,40 @@
+\pagebreak
+\subsection{Out}
+\begin{verbatim}
+    out (BASE, IMM)    ; Direct
+    out ((BASE, IMM))  ; Deferred
+    out ((BASE, IMM))+ ; Auto Increment
+    out ((BASE, IMM))- ; Auto Decrement
+\end{verbatim}
+
+\subsubsection{Encoding}
+This instruction will use the ARI format. 
+The operation field (OP) wil be $1101_2$
+
+\begin{center}
+    \begin{tabular}{|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|}
+        \hline
+        \textbf{15} & \textbf{14} & \textbf{13} &
+        \textbf{12} & \textbf{11} & \textbf{10} & \textbf{9} &
+        \textbf{8} & \textbf{7} & \textbf{6} & \textbf{5} &
+        \textbf{4} & \textbf{3} & \textbf{2} & \textbf{1} &
+        \textbf{0} \\
+
+        \hline
+        \multicolumn{1}{|c|}{1} & 
+        \multicolumn{1}{c|}{1} & 
+        \multicolumn{1}{c|}{0} & 
+        \multicolumn{1}{c|}{1} & 
+        \multicolumn{2}{c|}{MODE} &
+        \multicolumn{2}{c|}{BASE} & 
+        \multicolumn{8}{c|}{IMM} \\
+        \hline
+    \end{tabular}
+\end{center}
+
+
+\subsubsection{Operation}
+$Devices[AC] \leftarrow Memory[EA][7:8]$
+\par 
+Read the least significant eight bits from memory at the effective address (EA).
+Write the eight bits to the device indicated by the accumulator (AC).
