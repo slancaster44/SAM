@@ -49,13 +49,13 @@ The assembler will provide `pseudo-instructions' for the programmer's convenienc
         \hline
         Load Immediate & \verb|ld IMM| & \verb|subi ac,zr,TwosComplement(IMM)| \\
         \hline
-        Clear & \verb|clr| & \verb|subi ac,zr,0| \\
+        Clear & \verb|clr DR| & \verb|subi DR,zr,0| \\
         \hline
         Move & \verb|mov DR,SR| & \verb|subi DR,SR,0| \\
         \hline
-        Increment & \verb|inc| & \verb|subi ac,ac,-1| \\
+        Increment & \verb|inc DR| & \verb|subi DR,DR,-1| \\
         \hline
-        Decrement & \verb|dec| & \verb|subi ac,ac,1| \\
+        Decrement & \verb|dec DR| & \verb|subi DR,DR,1| \\
         \hline
         Jump Relative & \verb|jr OFFSET| & \verb|subi pc,pc,OFFSET| \\
         \hline

@@ -34,11 +34,12 @@ class Inputs:
         STEP_7 = 0b0111 << (STEP_OFFSET)
         STEP_8 = 0b1000 << (STEP_OFFSET)
         STEP_9 = 0b1001 << (STEP_OFFSET)
-        STEP_11 = 0b1010 << (STEP_OFFSET)
-        STEP_12 = 0b1011 << (STEP_OFFSET)
-        STEP_13 = 0b1100 << (STEP_OFFSET)
-        STEP_14 = 0b1101 << (STEP_OFFSET)
-        STEP_16 = 0b1111 << (STEP_OFFSET)
+        STEP_10 = 0b1010 << (STEP_OFFSET)
+        STEP_11 = 0b1011 << (STEP_OFFSET)
+        STEP_12 = 0b1100 << (STEP_OFFSET)
+        STEP_13 = 0b1101 << (STEP_OFFSET)
+        STEP_14 = 0b1110 << (STEP_OFFSET)
+        STEP_15 = 0b1111 << (STEP_OFFSET)
 
     class Opcode:
         SUBIC = 0b0000 << OPCODE_OFFSET 
@@ -138,6 +139,8 @@ class MicrocodeBuilders:
             self.placeSubtractImmediate,
             self.placeDirectMemoryMath,
             self.placeDeferredMemoryMath,
+            self.placeIncMemoryMath,
+            self.placeDecMemoryMath,
         ]
 
     def ApplyBuilders(self, microcode):
@@ -381,6 +384,219 @@ class MicrocodeBuilders:
             microcode[step8_code] |= Outputs.AC_CP_RE
             microcode[step8_code] &= (~Outputs.RST_STEP)
 
+    def placeIncMemoryMath(self, microcode):
+        options = itertools.product(
+            [Inputs.Opcode.ADD, Inputs.Opcode.SUB, Inputs.Opcode.EOR, Inputs.Opcode.NOR, Inputs.Opcode.LD],
+            Inputs.BaseRegister.ALL,
+            Inputs.State.ALL_CONDS)
+        
+        for (op, base, cond) in options:
+            opcode = op | Inputs.AddressingMode.INC | base | cond
+
+            step0_code = opcode | Inputs.State.STEP_1
+            step1_code = opcode | Inputs.State.STEP_2
+            step2_code = opcode | Inputs.State.STEP_3
+            step3_code = opcode | Inputs.State.STEP_4
+            step4_code = opcode | Inputs.State.STEP_5
+            step5_code = opcode | Inputs.State.STEP_6
+            step6_code = opcode | Inputs.State.STEP_7
+            step7_code = opcode | Inputs.State.STEP_8
+            step8_code = opcode | Inputs.State.STEP_9
+            step9_code = opcode | Inputs.State.STEP_10
+
+            base_signal = 0
+            if base == Inputs.BaseRegister.AC:
+                base_signal = Outputs.AC_OE_LO
+            elif base == Inputs.BaseRegister.IX:
+                base_signal = Outputs.IX_OE_LO
+            elif base == Inputs.BaseRegister.PC:
+                base_signal = Outputs.PC_YB_OE_LO
+            elif base == Inputs.BaseRegister.ZR:
+                base_signal = Outputs.LHS_IMM_OE_LO
+            else:
+                raise RuntimeError("unhandled base register")
+            
+            arith_op = 0
+            if op == Inputs.Opcode.ADD or op == Inputs.Opcode.LD:
+                arith_op = 0
+            elif op == Inputs.Opcode.SUB:
+                arith_op = Outputs.ALU_FN_SEL_0
+            elif op == Inputs.Opcode.NOR:
+                arith_op = Outputs.ALU_FN_SEL_1
+            elif op == Inputs.Opcode.EOR:
+                arith_op = Outputs.ALU_FN_SEL_0 | Outputs.ALU_FN_SEL_1
+            else:
+                raise RuntimeError("unhandled direct memory operation")
+
+            microcode[step0_code] &= (~base_signal) 
+            microcode[step0_code] &= (~Outputs.IR_IMM_OE_LO) 
+
+            microcode[step1_code] &= (~base_signal) 
+            microcode[step1_code] &= (~Outputs.IR_IMM_OE_LO) 
+            microcode[step1_code] |= Outputs.ALU_CP_RE 
+
+            microcode[step2_code] |= Outputs.MAR_CP_RE
+            microcode[step2_code] &= (~Outputs.MAR_OE_LO)
+            microcode[step2_code] |= Outputs.MEM_IN_SEL
+
+            microcode[step3_code] &= (~Outputs.MAR_OE_LO)
+            microcode[step3_code] |= Outputs.MEM_IN_SEL
+            microcode[step3_code] |= Outputs.MOR_CP_RE
+            microcode[step3_code] &= (~Outputs.MOR_OE_LO)
+            microcode[step3_code] &= (~Outputs.LHS_IMM_OE_LO)
+            microcode[step3_code] |= Outputs.LHS_IMM_0
+
+            microcode[step4_code] &= (~Outputs.MOR_OE_LO)
+            microcode[step4_code] |= Outputs.LHS_IMM_0
+            microcode[step4_code] &= (~Outputs.LHS_IMM_OE_LO)
+            microcode[step4_code] |= Outputs.ALU_CP_RE
+            microcode[step4_code] |= Outputs.MEM_WE_HI
+            microcode[step4_code] |= Outputs.MEM_IN_SEL
+            microcode[step4_code] &= (~Outputs.MAR_OE_LO)
+
+            microcode[step5_code] |= Outputs.MEM_WE_HI
+            microcode[step5_code] |= Outputs.MEM_IN_SEL
+            microcode[step5_code] |= Outputs.MEM_CP_WR_RE
+            microcode[step5_code] &= (~Outputs.MAR_OE_LO)
+
+            microcode[step6_code] |= Outputs.MAR_CP_RE
+            microcode[step6_code] &= (~Outputs.MAR_OE_LO)
+            microcode[step6_code] |= Outputs.MEM_IN_SEL
+
+            microcode[step7_code] &= (~Outputs.MAR_OE_LO)
+            microcode[step7_code] |= Outputs.MEM_IN_SEL
+            microcode[step7_code] |= Outputs.MOR_CP_RE
+            microcode[step7_code] &= (~Outputs.MOR_OE_LO)
+            if op != Inputs.Opcode.LD: 
+                microcode[step7_code] &= (~Outputs.AC_OE_LO)
+            else:
+                microcode[step7_code] &= (~Outputs.AC_OE_LO)
+            microcode[step7_code] |= arith_op
+
+            microcode[step8_code] &= (~Outputs.MOR_OE_LO)
+            if op != Inputs.Opcode.LD: 
+                microcode[step8_code] &= (~Outputs.AC_OE_LO)
+            else:
+                microcode[step8_code] &= (~Outputs.LHS_IMM_OE_LO)
+            microcode[step8_code] |= arith_op
+            microcode[step8_code] |= Outputs.ALU_COUT_CP_RE
+            microcode[step8_code] |= Outputs.ALU_CP_RE
+
+            microcode[step9_code] |= Outputs.AC_CP_RE
+            microcode[step9_code] &= (~Outputs.RST_STEP)
+
+
+    def placeDecMemoryMath(self, microcode):
+        options = itertools.product(
+            [Inputs.Opcode.ADD, Inputs.Opcode.SUB, Inputs.Opcode.EOR, Inputs.Opcode.NOR, Inputs.Opcode.LD],
+            Inputs.BaseRegister.ALL,
+            Inputs.State.ALL_CONDS)
+        
+        for (op, base, cond) in options:
+            opcode = op | Inputs.AddressingMode.DEC | base | cond
+
+            step0_code = opcode | Inputs.State.STEP_1
+            step1_code = opcode | Inputs.State.STEP_2
+            step2_code = opcode | Inputs.State.STEP_3
+            step3_code = opcode | Inputs.State.STEP_4
+            step4_code = opcode | Inputs.State.STEP_5
+            step5_code = opcode | Inputs.State.STEP_6
+            step6_code = opcode | Inputs.State.STEP_7
+            step7_code = opcode | Inputs.State.STEP_8
+            step8_code = opcode | Inputs.State.STEP_9
+            step9_code = opcode | Inputs.State.STEP_10
+            step10_code = opcode | Inputs.State.STEP_11
+
+            base_signal = 0
+            if base == Inputs.BaseRegister.AC:
+                base_signal = Outputs.AC_OE_LO
+            elif base == Inputs.BaseRegister.IX:
+                base_signal = Outputs.IX_OE_LO
+            elif base == Inputs.BaseRegister.PC:
+                base_signal = Outputs.PC_YB_OE_LO
+            elif base == Inputs.BaseRegister.ZR:
+                base_signal = Outputs.LHS_IMM_OE_LO
+            else:
+                raise RuntimeError("unhandled base register")
+            
+            arith_op = 0
+            if op == Inputs.Opcode.ADD or op == Inputs.Opcode.LD:
+                arith_op = 0
+            elif op == Inputs.Opcode.SUB:
+                arith_op = Outputs.ALU_FN_SEL_0
+            elif op == Inputs.Opcode.NOR:
+                arith_op = Outputs.ALU_FN_SEL_1
+            elif op == Inputs.Opcode.EOR:
+                arith_op = Outputs.ALU_FN_SEL_0 | Outputs.ALU_FN_SEL_1
+            else:
+                raise RuntimeError("unhandled direct memory operation")
+
+            microcode[step0_code] &= (~base_signal) 
+            microcode[step0_code] &= (~Outputs.IR_IMM_OE_LO) 
+
+            microcode[step1_code] &= (~base_signal) 
+            microcode[step1_code] &= (~Outputs.IR_IMM_OE_LO) 
+            microcode[step1_code] |= Outputs.ALU_CP_RE 
+
+            microcode[step2_code] |= Outputs.MAR_CP_RE
+            microcode[step2_code] &= (~Outputs.MAR_OE_LO)
+            microcode[step2_code] |= Outputs.MEM_IN_SEL
+
+            microcode[step3_code] &= (~Outputs.MAR_OE_LO)
+            microcode[step3_code] |= Outputs.MEM_IN_SEL
+            microcode[step3_code] |= Outputs.MOR_CP_RE
+            microcode[step3_code] &= (~Outputs.MOR_OE_LO)
+            microcode[step3_code] &= (~Outputs.LHS_IMM_OE_LO)
+            microcode[step3_code] |= Outputs.LHS_IMM_0
+            microcode[step3_code] |= Outputs.LHS_IMM_S
+
+            microcode[step4_code] &= (~Outputs.MOR_OE_LO)
+            microcode[step4_code] |= Outputs.LHS_IMM_0
+            microcode[step3_code] |= Outputs.LHS_IMM_S
+            microcode[step4_code] &= (~Outputs.LHS_IMM_OE_LO)
+            microcode[step4_code] |= Outputs.ALU_CP_RE
+            microcode[step4_code] |= Outputs.MEM_WE_HI
+            microcode[step4_code] |= Outputs.MEM_IN_SEL
+            microcode[step4_code] &= (~Outputs.MAR_OE_LO)
+
+            microcode[step5_code] |= Outputs.MEM_WE_HI
+            microcode[step5_code] |= Outputs.MEM_IN_SEL
+            microcode[step5_code] |= Outputs.MEM_CP_WR_RE
+            microcode[step5_code] &= (~Outputs.MAR_OE_LO)
+
+            microcode[step5_code] &= (~Outputs.MOR_OE_LO)
+            microcode[step5_code] &= (~Outputs.LHS_IMM_OE_LO)
+
+            microcode[step6_code] &= (~Outputs.MOR_OE_LO)
+            microcode[step6_code] &= (~Outputs.LHS_IMM_OE_LO)
+            microcode[step6_code] |= Outputs.ALU_CP_RE
+
+            microcode[step7_code] |= Outputs.MAR_CP_RE
+            microcode[step7_code] &= (~Outputs.MAR_OE_LO)
+            microcode[step7_code] |= Outputs.MEM_IN_SEL
+
+            microcode[step8_code] &= (~Outputs.MAR_OE_LO)
+            microcode[step8_code] |= Outputs.MEM_IN_SEL
+            microcode[step8_code] |= Outputs.MOR_CP_RE
+            microcode[step8_code] &= (~Outputs.MOR_OE_LO)
+            if op != Inputs.Opcode.LD: 
+                microcode[step8_code] &= (~Outputs.AC_OE_LO)
+            else:
+                microcode[step8_code] &= (~Outputs.AC_OE_LO)
+            microcode[step8_code] |= arith_op
+
+            microcode[step9_code] &= (~Outputs.MOR_OE_LO)
+            if op != Inputs.Opcode.LD: 
+                microcode[step9_code] &= (~Outputs.AC_OE_LO)
+            else:
+                microcode[step9_code] &= (~Outputs.LHS_IMM_OE_LO)
+            microcode[step9_code] |= arith_op
+            microcode[step9_code] |= Outputs.ALU_COUT_CP_RE
+            microcode[step9_code] |= Outputs.ALU_CP_RE
+
+            microcode[step10_code] |= Outputs.AC_CP_RE
+            microcode[step10_code] &= (~Outputs.RST_STEP)
+
 if __name__ == '__main__':
     output = [Outputs.DEFAULT_OUTPUT] * (2 ** 16)
     builders = MicrocodeBuilders()
@@ -395,6 +611,6 @@ if __name__ == '__main__':
     out_file.close()
 
     out_file = open('test.bin', 'wb')
-    outputs = [0b0111_01_00_11111111 | (0xFF & (i+0xA5)) for i in range(255)] + [0xA5 for i in range((2 ** 16) - 255)]
+    outputs = [0b0111_11_00_11111111 | (0xFF & (i+0xA5)) for i in range(255)] + [0xA5 for i in range((2 ** 16) - 255)]
     outputs = [struct.pack(">H", x) for x in outputs]
     [out_file.write(x) for x in outputs]

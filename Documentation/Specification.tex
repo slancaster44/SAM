@@ -134,9 +134,9 @@ to the operation.
     \hline
     $01_2$ & Deferred & $EA \leftarrow Memory[BASE + SignExtend(IMM)]$ \\
     \hline
-    $10_2$ & Auto Increment & $EA \leftarrow Memory[BASE + SignExtend(IMM)]; Memory[EA] \leftarrow Memory[EA] + 1$ \\
+    $10_2$ & Auto Increment & $Memory[BASE + SignExtend(IMM)] \leftarrow Memory[EA] + 1; EA \leftarrow Memory[BASE + SignExtend(IMM)]$ \\
     \hline
-    $11_2$ & Auto Decrement & $EA \leftarrow Memory[BASE + SignExtend(IMM)]; Memory[EA] \leftarrow Memory[EA] - 1$\\
+    $11_2$ & Auto Decrement & $EA \leftarrow Memory[BASE + SignExtend(IMM)]; Memory[BASE + SignExtend(IMM)] \leftarrow Memory[EA] - 1$\\
     \hline
 \end{tabular}
 \end{center}
@@ -145,14 +145,14 @@ to the operation.
 \section{Instruction Set}
 \input{Instructions/subic.tex} % Microcode Done
 \input{Instructions/subi.tex} % Microcode Done
-\input{Instructions/eor.tex}
-\input{Instructions/sub.tex}
-\input{Instructions/nor.tex}
-\input{Instructions/add.tex}
-\input{Instructions/load.tex}
+\input{Instructions/eor.tex} % Microcode Done
+\input{Instructions/sub.tex} % Microcode Done
+\input{Instructions/nor.tex} % Microcode Done
+\input{Instructions/add.tex} % Microcode Done
+\input{Instructions/load.tex} % Microcode Done
 \input{Instructions/store.tex}
-\input{Instructions/shift.tex}
-\input{Instructions/in.tex}
+\input{Instructions/shift.tex} 
+\input{Instructions/in.tex} 
 \input{Instructions/out.tex}
 
 \end{document}
