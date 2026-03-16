@@ -76,6 +76,24 @@ Those who have studied MIPS-style RISC architectures will understand the utility
 This register will be used to store the overflow bit of recent additions. 
 Conditional instructions will only execute if this bit is set.
 
+\subsubsection{Register Encoding}
+Instructions will contain one or more 2-bit fields to indicate a register. This is the encoding of those fields.
+
+\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        Encoding & Register \\
+        \hline
+        $00_2$ & The Zero Register (ZR) \\
+        \hline
+        $01_2$ & The Program Counter (PC) \\
+        \hline
+        $10_2$ & The Index Register (IX) \\
+        \hline
+        $11_2$ & The Accumulator (AC) \\
+        \hline
+    \end{tabular}
+\end{center}
 
 \pagebreak
 \section{Instruction Formats}
@@ -134,9 +152,9 @@ to the operation.
     \hline
     $01_2$ & Deferred & $EA \leftarrow Memory[BASE + SignExtend(IMM)]$ \\
     \hline
-    $10_2$ & Auto Increment & $Memory[BASE + SignExtend(IMM)] \leftarrow Memory[EA] + 1; EA \leftarrow Memory[BASE + SignExtend(IMM)]$ \\
+    $10_2$ & Auto Increment & $EA \leftarrow ++(Memory[BASE + SignExtend(IMM)])$ \\
     \hline
-    $11_2$ & Auto Decrement & $EA \leftarrow Memory[BASE + SignExtend(IMM)]; Memory[BASE + SignExtend(IMM)] \leftarrow Memory[EA] - 1$\\
+    $11_2$ & Auto Decrement & $EA \leftarrow (Memory[BASE + SignExtend(IMM)])--$\\
     \hline
 \end{tabular}
 \end{center}
