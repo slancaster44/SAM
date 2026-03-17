@@ -320,7 +320,7 @@ begin
 
   if match.success and (match.length < MAX_STR_IDX) then
     begin
-      for i := 0 to match.length do
+      for i := 0 to match.length-1 do
         begin
           read(inputFile^, raw[i]);
         end;

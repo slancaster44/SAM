@@ -1,2 +1,8 @@
-abccccf
-0x32
+
+    .equ stack 0xFF80
+
+    .text
+    .org 0x1000
+_entry:
+    ld      0x80
+    mov     ix, ac

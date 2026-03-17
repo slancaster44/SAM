@@ -1,7 +1,7 @@
 
 type
   TokenKind = (
-    TOK_IDENT,
+    TOK_IDENT, TOK_DOT,
     TOK_COLON, TOK_COMMA, TOK_DASH, TOK_PLUS,
     TOK_HEX_IMM, TOK_BIN_IMM, TOK_DEC_IMM,
     TOK_ZR, TOK_PC, TOK_AC, TOK_IX,
@@ -37,6 +37,7 @@ begin
   output^.curLine := 1;
 
   output^.matchTable[TOK_IDENT] := CompileRegex(a, '((a-z)|(A-Z))(((A-Z)|(a-z)|(0-9)|(_))*)');
+  output^.matchTable[TOK_DOT] := CompileRegex(a, '\.');
   output^.matchTable[TOK_COLON] := CompileRegex(a, ':');
   output^.matchTable[TOK_COMMA] := CompileRegex(a, ',');
   output^.matchTable[TOK_DASH] := CompileRegex(a, '\-');
@@ -58,7 +59,7 @@ begin
   output^.matchTable[TOK_IN] := CompileRegex(a, '((in)|(IN))');
   output^.matchTable[TOK_OUT] := CompileRegex(a, '((out)|(OUT))');
 
-  for i := TokenKind(0) to TOK_ERROR do
+  for i := TokenKind(0) to TokenKind(cardinal(TOK_ERROR)-1) do
     begin
       Assert(output^.matchTable[i] <> nil);
     end;
@@ -98,14 +99,14 @@ begin
       read(l^.inputFile^, curChar);
       while ord(curChar) <= 32 do
         begin
-          read(l^.inputFile^, curChar);
           if curChar = chr(10) then l^.curLine := l^.curLine + 1;
+          read(l^.inputFile^, curChar);
         end;
       pos := filepos(l^.inputFile^);
       seek(l^.inputFile^, pos-1);
     end;
 
-  for i := TokenKind(0) to TOK_ERROR do
+  for i := TokenKind(0) to TokenKind(cardinal(TOK_ERROR)-1) do
     begin
       content := EvaluateRegexString(l^.matchTable[i], l^.inputFile);
       if content <> nil then 

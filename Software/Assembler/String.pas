@@ -26,7 +26,7 @@ begin
   output := 5381;
   length := RawStringLength(str);
 
-  for i := 0 to length do
+  for i := 0 to length-1 do
     output := ((output * 32) + output) + ord(str[i]);
 
   HashRawString := output;
