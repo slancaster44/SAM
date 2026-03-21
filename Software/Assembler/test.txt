@@ -1,8 +1,91 @@
 
-    .equ stack 0xFF80
+    origin 0x0000
+define entry .
 
-    .text
-    .org 0x1000
-_entry:
-    ld      0x80
-    mov     ix, ac
+    ; Comment so we have those, now every intstruction
+    subc    ac,-32
+    nop
+    adl
+    jrc     label
+    jpc
+
+    sbla    32      ; Subtract immediate if link, accumulator
+    sbli    32      ; Subtract immediate if link, index
+    jrc     label   ; Jump relative if link
+
+    lda     <register>
+    ldi
+    jmp
+    ; Don't like that, weird mnemonics
+   
+    ; Reframe as ld with subtraction
+    ld      <target>, <src>
+    ld      <target>, <src> +/- <imm>
+
+    ldc     <target>, <src>
+    ldc     <target>, <src> +/- <imm>
+
+    sub     (<base> +/- <offset>)
+    sub     ((<base> +/- <offset>))
+    sub     (+(<base> +/- <offset>))
+    sub     ((<base> +/- <offset>)-)
+    ; same for all other accumulator instructions
+
+
+define label .
+    sub     ac,32
+    cmp     0
+    sel
+    cll
+    ld      ac,32
+    clr     ac
+    ld      ix,ac
+    inc     ix
+    dec     ix
+    jr      label
+    jp     
+    rst
+    hlt
+    eor     ac, (ix, 32)
+    eor     ac, ((ix, 32))
+    eor     ac, (+(ix, 32))
+    eor     ac, ((ix, 32)-)
+    sub     ac, (ix, 32)
+    sub     ac, ((ix, 32))
+    sub     ac, (+(ix, 32))
+    sub     ac, ((ix, 32)-)
+    nor     ac, (ix, 32)
+    nor     ac, ((ix, 32))
+    nor     ac, (+(ix, 32))
+    nor     ac, ((ix, 32)-)
+    add     ac, (ix, 32)
+    add     ac, ((ix, 32))
+    add     ac, (+(ix, 32))
+    add     ac, ((ix, 32)-)
+    ld      ac, (ix, 32)
+    ld      ac, ((ix, 32))
+    ld      ac, (+(ix, 32))
+    ld      ac, ((ix, 32)-)
+    jp      (ix, 32)
+    jp      ((ix, 32))
+    jp      (+(ix, 32))
+    jp      ((ix, 32)-)
+    st      ac, (ix, 32)
+    st      ac, ((ix, 32))
+    st      ac, (+(ix, 32))
+    st      ac, ((ix, 32)-)
+    shl     ac, (ix, 32)
+    shl     ac, ((ix, 32))
+    shl     ac, (+(ix, 32))
+    shl     ac, ((ix, 32)-)
+    in      ac, (ix, 32)
+    in      ac, ((ix, 32))
+    in      ac, (+(ix, 32))
+    in      ac, ((ix, 32)-)
+    out     ac, (ix, 32)
+    out     ac, ((ix, 32))
+    out     ac, (+(ix, 32))
+    out     ac, ((ix, 32)-)
+
+define initial_index .
+    dw 0xFF80

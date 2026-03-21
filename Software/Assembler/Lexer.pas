@@ -7,6 +7,7 @@ type
     TOK_ZR, TOK_PC, TOK_AC, TOK_IX,
     TOK_SUB, TOK_EOR, TOK_NOR, TOK_ADD, TOK_LD,
     TOK_ST, TOK_SHL, TOK_IN, TOK_OUT,
+    TOK_DW, TOK_SECTION,
     TOK_ERROR { Must be at end }
   );
 
@@ -36,7 +37,7 @@ begin
   output^.inputFile := inFile;
   output^.curLine := 1;
 
-  output^.matchTable[TOK_IDENT] := CompileRegex(a, '((a-z)|(A-Z))(((A-Z)|(a-z)|(0-9)|(_))*)');
+  output^.matchTable[TOK_IDENT] := CompileRegex(a, '((a-z)|(A-Z)|(_))(((A-Z)|(a-z)|(0-9)|(_))*)');
   output^.matchTable[TOK_DOT] := CompileRegex(a, '\.');
   output^.matchTable[TOK_COLON] := CompileRegex(a, ':');
   output^.matchTable[TOK_COMMA] := CompileRegex(a, ',');
@@ -58,6 +59,8 @@ begin
   output^.matchTable[TOK_SHL] := CompileRegex(a, '((SHL)|(shl))');
   output^.matchTable[TOK_IN] := CompileRegex(a, '((in)|(IN))');
   output^.matchTable[TOK_OUT] := CompileRegex(a, '((out)|(OUT))');
+  output^.matchTable[TOK_DW] := CompileRegex(a, '((dw)|(DW))');
+  output^.matchTable[TOK_SECTION] := CompileRegex(a, '((section)|(SECTION))');
 
   for i := TokenKind(0) to TokenKind(cardinal(TOK_ERROR)-1) do
     begin
@@ -92,28 +95,32 @@ var
 begin
   output.kind := TOK_ERROR;
   output.line := l^.curLine;
+  output.content := nil;
 
 
   if not eof(l^.inputFile^) then
     begin
       read(l^.inputFile^, curChar);
-      while ord(curChar) <= 32 do
+      while (ord(curChar) <= 32) and (not eof(l^.inputFile^)) do
         begin
           if curChar = chr(10) then l^.curLine := l^.curLine + 1;
           read(l^.inputFile^, curChar);
         end;
       pos := filepos(l^.inputFile^);
-      seek(l^.inputFile^, pos-1);
+      if (not eof(l^.inputFile^)) then seek(l^.inputFile^, pos-1);
     end;
 
-  for i := TokenKind(0) to TokenKind(cardinal(TOK_ERROR)-1) do
+  if not eof(l^.inputFile^) then
     begin
-      content := EvaluateRegexString(l^.matchTable[i], l^.inputFile);
-      if content <> nil then 
+      for i := TokenKind(0) to TokenKind(cardinal(TOK_ERROR)-1) do
         begin
-          output.kind := i;
-          output.content := content;
-          break;
+          content := EvaluateRegexString(l^.matchTable[i], l^.inputFile);
+          if content <> nil then 
+            begin
+              output.kind := i;
+              output.content := content;
+              break;
+            end;
         end;
     end;
 

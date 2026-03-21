@@ -1,9 +1,11 @@
 \pagebreak
-\subsection{Subtract Immediate, Conditional}
-\verb|subi.c DR,SR,IMM|
+\subsection{Register Load With Subtraction}
+\begin{verbatim}
+    ld  DR, SR - IMM
+\end{verbatim}
 \subsubsection{Encoding}
 This instruction will use the RRI format. 
-The operation field (OP) wil be $0000_2$
+The operation field (OP) wil be $0001_2$
 
 \begin{center}
     \begin{tabular}{|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|}
@@ -18,7 +20,7 @@ The operation field (OP) wil be $0000_2$
         \multicolumn{1}{|c|}{0} & 
         \multicolumn{1}{c|}{0} & 
         \multicolumn{1}{c|}{0} & 
-        \multicolumn{1}{c|}{0} & 
+        \multicolumn{1}{c|}{1} & 
         \multicolumn{2}{c|}{DST} &
         \multicolumn{2}{c|}{SRC} & 
         \multicolumn{8}{c|}{IMM} \\
@@ -27,9 +29,8 @@ The operation field (OP) wil be $0000_2$
 \end{center}
 
 \subsubsection{Operation}
-$if (L = 1) \{ DR \leftarrow SR - SignExtend(IMM) \}$
+$DR \leftarrow SR - SignExtend(IMM)$
 \par 
-If the link register is not set, skip this instruction.
 Subtract the the sign-extended immediate (IMM) from the contents of the source register (SR).
 Latch the overflow into the link register.
 Place the result into the destination register (DR).
@@ -42,13 +43,31 @@ The assembler will provide `pseudo-instructions' for the programmer's convenienc
         \hline
         Name & Syntax & Equivalent \\
         \hline
-        No-Operation & \verb|nop| & \verb|subi.c zr,zr,0|  \\
+        Register Load With Immediate Addition & \verb |ld DR, SR + IMM| & \verb|ld DR, SR - TwosComplement(IMM) | \\
         \hline
-        Add Link & \verb|adl| & \verb|subi.c ac,ac,-1| \\
+        Compare Immediate & \verb|cmp IMM| & \verb|ld zr, ac - IMM| \\
         \hline
-        Jump Relative Conditional & \verb|jr.c OFFSET| & \verb|subi.c pc,pc,OFFSET| \\
+        Set Link & \verb|sel| & \verb|ld zr, zr - 0| \\
         \hline
-        Jump Conditional & \verb|jmp.c| & \verb|subi.c pc,ac,0| \\
+        Clear Link & \verb|cll| & \verb|ld zr, zr - 1| \\
+        \hline
+        Load Immediate & \verb|ld DR, IMM| & \verb|ld DR, zr - TwosComplement(IMM)| \\
+        \hline
+        Clear & \verb|clr DR| & \verb|ld DR, zr - 0| \\
+        \hline
+        Move & \verb|ld DR, SR| & \verb|ld DR, SR - 0| \\
+        \hline
+        Increment & \verb|inc DR| & \verb|ld DR, DR - 1| \\
+        \hline
+        Decrement & \verb|dec DR| & \verb|ld DR, DR + 1| \\
+        \hline
+        Jump Relative & \verb|jr OFFSET| & \verb|ld pc, pc, OFFSET| \\
+        \hline
+        Jump & \verb|jmp| & \verb|ld pc, ac + 0| \\
+        \hline
+        Reset & \verb|rst| & \verb|ld pc, zr + 0|\\
+        \hline
+        Halt & \verb|hlt| & \verb|ld pc, pc - 1| \\
         \hline
     \end{tabular}
 \end{center}

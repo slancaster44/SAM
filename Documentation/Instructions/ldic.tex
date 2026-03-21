@@ -1,9 +1,9 @@
 \pagebreak
-\subsection{Subtract Immediate}
-\verb|subi DR,SR,IMM|
+\subsection{Conditional Register Load With Subtraction}
+\verb|ldc DR,SR,IMM|
 \subsubsection{Encoding}
 This instruction will use the RRI format. 
-The operation field (OP) wil be $0001_2$
+The operation field (OP) wil be $0000_2$
 
 \begin{center}
     \begin{tabular}{|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|}
@@ -18,7 +18,7 @@ The operation field (OP) wil be $0001_2$
         \multicolumn{1}{|c|}{0} & 
         \multicolumn{1}{c|}{0} & 
         \multicolumn{1}{c|}{0} & 
-        \multicolumn{1}{c|}{1} & 
+        \multicolumn{1}{c|}{0} & 
         \multicolumn{2}{c|}{DST} &
         \multicolumn{2}{c|}{SRC} & 
         \multicolumn{8}{c|}{IMM} \\
@@ -27,8 +27,9 @@ The operation field (OP) wil be $0001_2$
 \end{center}
 
 \subsubsection{Operation}
-$DR \leftarrow SR - SignExtend(IMM)$
+$if (L = 1) \{ DR \leftarrow SR - SignExtend(IMM) \}$
 \par 
+If the link register is not set, skip this instruction.
 Subtract the the sign-extended immediate (IMM) from the contents of the source register (SR).
 Latch the overflow into the link register.
 Place the result into the destination register (DR).
@@ -41,29 +42,13 @@ The assembler will provide `pseudo-instructions' for the programmer's convenienc
         \hline
         Name & Syntax & Equivalent \\
         \hline
-        Compare Immediate & \verb|cmp IMM| & \verb|subi zr,ac,IMM| \\
+        No-Operation & \verb|nop| & \verb|ldc zr, zr + 0|  \\
         \hline
-        Set Link & \verb|sel| & \verb|subi zr,zr,0| \\
+        Add Link & \verb|adl| & \verb|ldc ac ac - 1| \\
         \hline
-        Clear Link & \verb|cll| & \verb|subi zr,zr,1| \\
+        Jump Relative Conditional & \verb|jrc OFFSET| & \verb|ldc pc, pc - OFFSET| \\
         \hline
-        Load Immediate & \verb|ld IMM| & \verb|subi ac,zr,TwosComplement(IMM)| \\
-        \hline
-        Clear & \verb|clr DR| & \verb|subi DR,zr,0| \\
-        \hline
-        Move & \verb|mov DR,SR| & \verb|subi DR,SR,0| \\
-        \hline
-        Increment & \verb|inc DR| & \verb|subi DR,DR,-1| \\
-        \hline
-        Decrement & \verb|dec DR| & \verb|subi DR,DR,1| \\
-        \hline
-        Jump Relative & \verb|jr OFFSET| & \verb|subi pc,pc,OFFSET| \\
-        \hline
-        Jump & \verb|jmp| & \verb|subi pc,ac,0| \\
-        \hline
-        Reset & \verb|rst| & \verb|subi pc,zr,0|\\
-        \hline
-        Halt & \verb|hlt| & \verb|subi pc,pc,1| \\
+        Jump Conditional & \verb|jmp.c| & \verb|ldc pc ac + 0| \\
         \hline
     \end{tabular}
 \end{center}
