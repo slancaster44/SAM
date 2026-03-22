@@ -1,91 +1,187 @@
 
     origin 0x0000
 define entry .
+    ; Write out all instructions so we can see
+    ; if they are assemble-able
 
-    ; Comment so we have those, now every intstruction
-    subc    ac,-32
-    nop
-    adl
-    jrc     label
-    jpc
+    ld  zr, zr - 10
+    ld  zr, pc - 0x10   ; Hex
+    ld  zr, ix - 0b10   ; Bin
+    ld  zr, ac - 0c10   ; Oct
+    ld  pc, zr - 10
+    ld  pc, pc - 10
+    ld  pc, ix - 10
+    ld  pc, ac - 10
+    ld  ix, zr - 10
+    ld  ix, pc - 10
+    ld  ix, ix - 10
+    ld  ix, ac - 10
+    ld  ac, zr - 10
+    ld  ac, pc - 10
+    ld  ac, ix - 10
+    ld  ac, ac - 10
 
-    sbla    32      ; Subtract immediate if link, accumulator
-    sbli    32      ; Subtract immediate if link, index
-    jrc     label   ; Jump relative if link
+    ; Psuedo-Instructions
+    ld  zr, zr + 10
+    ld  zr, pc + 10
+    ld  zr, ix + 10
+    ld  zr, ac + 10
+    ld  pc, zr + 10
+    ld  pc, pc + 10
+    ld  pc, ix + 10
+    ld  pc, ac + 10
+    ld  ix, zr + 10
+    ld  ix, pc + 10
+    ld  ix, ix + 10
+    ld  ix, ac + 10
+    ld  ac, zr + 10
+    ld  ac, pc + 10
+    ld  ac, ix + 10
+    ld  ac, ac + 10
 
-    lda     <register>
-    ldi
-    jmp
-    ; Don't like that, weird mnemonics
-   
-    ; Reframe as ld with subtraction
-    ld      <target>, <src>
-    ld      <target>, <src> +/- <imm>
-
-    ldc     <target>, <src>
-    ldc     <target>, <src> +/- <imm>
-
-    sub     (<base> +/- <offset>)
-    sub     ((<base> +/- <offset>))
-    sub     (+(<base> +/- <offset>))
-    sub     ((<base> +/- <offset>)-)
-    ; same for all other accumulator instructions
-
-
-define label .
-    sub     ac,32
-    cmp     0
+    cmp 10
     sel
     cll
-    ld      ac,32
-    clr     ac
-    ld      ix,ac
-    inc     ix
-    dec     ix
-    jr      label
-    jp     
+    ld  zr, 10
+    ld  pc, 10
+    ld  ix, 10
+    ld  ac, 10
+    clr zr
+    clr pc
+    clr ix
+    clr ac
+
+    ld  zr, zr
+    ld  zr, pc
+    ld  zr, ix
+    ld  zr, ac
+    ld  pc, zr
+    ld  pc, pc
+    ld  pc, ix
+    ld  pc, ac
+    ld  ix, zr
+    ld  ix, pc
+    ld  ix, ix
+    ld  ix, ac
+    ld  ac, zr
+    ld  ac, pc
+    ld  ac, ix
+    ld  ac, ac
+
+    add  zr, 10
+    add  pc, 10
+    add  ix, 10
+    add  ac, 10
+    sub  zr, 10
+    sub  pc, 10
+    sub  ix, 10
+    sub  ac, 10
+
+    jr  label
+
+define label .
     rst
     hlt
-    eor     ac, (ix, 32)
-    eor     ac, ((ix, 32))
-    eor     ac, (+(ix, 32))
-    eor     ac, ((ix, 32)-)
-    sub     ac, (ix, 32)
-    sub     ac, ((ix, 32))
-    sub     ac, (+(ix, 32))
-    sub     ac, ((ix, 32)-)
-    nor     ac, (ix, 32)
-    nor     ac, ((ix, 32))
-    nor     ac, (+(ix, 32))
-    nor     ac, ((ix, 32)-)
-    add     ac, (ix, 32)
-    add     ac, ((ix, 32))
-    add     ac, (+(ix, 32))
-    add     ac, ((ix, 32)-)
-    ld      ac, (ix, 32)
-    ld      ac, ((ix, 32))
-    ld      ac, (+(ix, 32))
-    ld      ac, ((ix, 32)-)
-    jp      (ix, 32)
-    jp      ((ix, 32))
-    jp      (+(ix, 32))
-    jp      ((ix, 32)-)
-    st      ac, (ix, 32)
-    st      ac, ((ix, 32))
-    st      ac, (+(ix, 32))
-    st      ac, ((ix, 32)-)
-    shl     ac, (ix, 32)
-    shl     ac, ((ix, 32))
-    shl     ac, (+(ix, 32))
-    shl     ac, ((ix, 32)-)
-    in      ac, (ix, 32)
-    in      ac, ((ix, 32))
-    in      ac, (+(ix, 32))
-    in      ac, ((ix, 32)-)
-    out     ac, (ix, 32)
-    out     ac, ((ix, 32))
-    out     ac, (+(ix, 32))
-    out     ac, ((ix, 32)-)
 
-define initial_index .
-    dw 0xFF80
+    ldc  zr, zr - 10
+    ldc  zr, pc - 10
+    ldc  zr, ix - 10
+    ldc  zr, ac - 10
+    ldc  pc, zr - 10
+    ldc  pc, pc - 10
+    ldc  pc, ix - 10
+    ldc  pc, ac - 10
+    ldc  ix, zr - 10
+    ldc  ix, pc - 10
+    ldc  ix, ix - 10
+    ldc  ix, ac - 10
+    ldc  ac, zr - 10
+    ldc  ac, pc - 10
+    ldc  ac, ix - 10
+    ldc  ac, ac - 10
+
+    nop
+    adl
+    jrc mem_ops
+
+define mem_ops .
+    eor ac, (zr + 1)
+    eor ac, ((pc + 2))
+    eor ac, (+(ix + 3))
+    eor ac, ((ac + 4)-)
+    eor ac, (zr - 1)
+    eor ac, ((pc - 2))
+    eor ac, (+(ix - 3))
+    eor ac, ((ac - 4)-)
+    
+    sub ac, (zr + 1)
+    sub ac, ((pc + 2))
+    sub ac, (+(ix + 3))
+    sub ac, ((ac + 4)-)
+    sub ac, (zr - 1)
+    sub ac, ((pc - 2))
+    sub ac, (+(ix - 3))
+    sub ac, ((ac - 4)-)
+
+    nor ac, (zr + 1)
+    nor ac, ((pc + 2))
+    nor ac, (+(ix + 3))
+    nor ac, ((ac + 4)-)
+    nor ac, (zr - 1)
+    nor ac, ((pc - 2))
+    nor ac, (+(ix - 3))
+    nor ac, ((ac - 4)-)
+
+    add ac, (zr + 1)
+    add ac, ((pc + 2))
+    add ac, (+(ix + 3))
+    add ac, ((ac + 4)-)
+    add ac, (zr - 1)
+    add ac, ((pc - 2))
+    add ac, (+(ix - 3))
+    add ac, ((ac - 4)-)
+
+    ld ac, (zr + 1)
+    ld ac, ((pc + 2))
+    ld ac, (+(ix + 3))
+    ld ac, ((ac + 4)-)
+    ld ac, (zr - 1)
+    ld ac, ((pc - 2))
+    ld ac, (+(ix - 3))
+    ld ac, ((ac - 4)-)
+
+    ld pc, (zr + 1)
+    ld pc, ((pc + 2))
+    ld pc, (+(ix + 3))
+    ld pc, ((ac + 4)-)
+    ld pc, (zr - 1)
+    ld pc, ((pc - 2))
+    ld pc, (+(ix - 3))
+    ld pc, ((ac - 4)-)
+
+    st (zr + 1), ac
+    st ((pc + 2)), ac
+    st (+(ix + 3)), ac
+    st ((ac + 4)-), ac
+    st (zr - 1), ac
+    st ((pc - 2)), ac
+    st (+(ix - 3)), ac
+    st ((ac - 4)-), ac
+
+    in (zr + 1), (ac)
+    in ((pc + 2)), (ac)
+    in (+(ix + 3)), (ac)
+    in ((ac + 4)-), (ac)
+    in (zr - 1), (ac)
+    in ((pc - 2)), (ac)
+    in (+(ix - 3)), (ac)
+    in ((ac - 4)-), (ac)
+
+    out (ac), (zr + 1)
+    out (ac), ((pc + 2))
+    out (ac), (+(ix + 3))
+    out (ac), ((ac + 4)-)
+    out (ac), (zr - 1)
+    out (ac), ((pc - 2))
+    out (ac), (+(ix - 3))
+    out (ac), ((ac - 4)-)

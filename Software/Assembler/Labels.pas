@@ -26,24 +26,14 @@ begin
   rootLabel := newLabel;
 end;
 
-procedure SetLabelLocation(labelName : pString; location : cardinal);
+function GetLabel(labelName : pString) : pLabel;
 var
   curLabel : pLabel;
-  didSet : boolean;
 begin
   curLabel := rootLabel;
-  didSet := false;
+  
+  while (curLabel <> nil) and (curLabel^.labelName <> labelName) do
+    curLabel := curLabel^.next;
 
-  while (curLabel <> nil) and (not didSet) do
-    begin
-      didSet := curLabel^.labelName = labelName;
-      if didSet then curLabel^.location := location;
-      curLabel := curLabel^.next;
-    end;
-
-  if not didSet then
-    begin
-      writeln('Label does not exist');
-      writeln(labelName^.contents);
-    end;
+  GetLabel := curLabel;
 end;

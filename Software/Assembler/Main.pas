@@ -11,6 +11,7 @@ program Main;
 {$I PassOne.pas}
 {$I Pass.pas}
 
+{$I Parser.pas}
 {$I Encode.pas}
 
 var
