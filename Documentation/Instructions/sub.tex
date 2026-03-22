@@ -1,10 +1,10 @@
 \pagebreak
 \subsection{Subtract}
 \begin{verbatim}
-    sub (BASE, IMM)    ; Direct
-    sub ((BASE, IMM))  ; Deferred
-    sub ((BASE, IMM))+ ; Auto Increment
-    sub ((BASE, IMM))- ; Auto Decrement
+    sub (BASE + IMM)    ; Direct
+    sub ((BASE + IMM))  ; Deferred
+    sub (+(BASE + IMM)) ; Auto Increment
+    sub ((BASE + IMM)-) ; Auto Decrement
 \end{verbatim}
 
 \subsubsection{Encoding}

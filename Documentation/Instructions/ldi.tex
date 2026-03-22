@@ -63,8 +63,6 @@ The assembler will provide `pseudo-instructions' for the programmer's convenienc
         \hline
         Jump Relative & \verb|jr OFFSET| & \verb|ld pc, pc, OFFSET| \\
         \hline
-        Jump & \verb|jmp| & \verb|ld pc, ac + 0| \\
-        \hline
         Reset & \verb|rst| & \verb|ld pc, zr + 0|\\
         \hline
         Halt & \verb|hlt| & \verb|ld pc, pc - 1| \\

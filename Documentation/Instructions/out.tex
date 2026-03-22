@@ -1,10 +1,10 @@
 \pagebreak
 \subsection{Out}
 \begin{verbatim}
-    out (BASE, IMM)    ; Direct
-    out ((BASE, IMM))  ; Deferred
-    out ((BASE, IMM))+ ; Auto Increment
-    out ((BASE, IMM))- ; Auto Decrement
+    out (BASE + IMM)    ; Direct
+    out ((BASE + IMM))  ; Deferred
+    out (+(BASE + IMM)) ; Auto Increment
+    out ((BASE + IMM)-) ; Auto Decrement
 \end{verbatim}
 
 \subsubsection{Encoding}

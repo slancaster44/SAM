@@ -44,11 +44,9 @@ The assembler will provide `pseudo-instructions' for the programmer's convenienc
         \hline
         No-Operation & \verb|nop| & \verb|ldc zr, zr + 0|  \\
         \hline
-        Add Link & \verb|adl| & \verb|ldc ac ac - 1| \\
+        Add Link & \verb|adl| & \verb|ldc ac, ac - 1| \\
         \hline
         Jump Relative Conditional & \verb|jrc OFFSET| & \verb|ldc pc, pc - OFFSET| \\
-        \hline
-        Jump Conditional & \verb|jmp.c| & \verb|ldc pc ac + 0| \\
         \hline
     \end{tabular}
 \end{center}

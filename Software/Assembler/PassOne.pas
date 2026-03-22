@@ -12,7 +12,6 @@ var
 begin
   output := true;
 
-  if 
 
   PassOne := output;
 end;

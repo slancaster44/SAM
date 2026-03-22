@@ -1,10 +1,10 @@
 \pagebreak
 \subsection{Not-Or}
 \begin{verbatim}
-    nor (BASE, IMM)    ; Direct
-    nor ((BASE, IMM))  ; Deferred
-    nor ((BASE, IMM))+ ; Auto Increment
-    nor ((BASE, IMM))- ; Auto Decrement
+    nor (BASE + IMM)    ; Direct
+    nor ((BASE + IMM))  ; Deferred
+    nor (+(BASE + IMM)) ; Auto Increment
+    nor ((BASE + IMM)-) ; Auto Decrement
 \end{verbatim}
 
 \subsubsection{Encoding}

@@ -11,6 +11,8 @@ program Main;
 {$I PassOne.pas}
 {$I Pass.pas}
 
+{$I Encode.pas}
+
 var
   lexerArena : pArena;
   testFile : pCharFile;
@@ -18,7 +20,7 @@ var
 begin
   lexerArena := NewArena();
   testFile := ArenaAllocate(lexerArena, sizeof(CharFile));
-  AssignFile(testFile^, 'test.txt');
+  assign(testFile^, 'test.txt');
 
   lex := NewLexer(lexerArena, testFile);
 

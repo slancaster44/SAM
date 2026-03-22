@@ -1,10 +1,10 @@
 \pagebreak
 \subsection{Shift Left}
 \begin{verbatim}
-    shl (BASE, IMM)    ; Direct
-    shl ((BASE, IMM))  ; Deferred
-    shl ((BASE, IMM))+ ; Auto Increment
-    shl ((BASE, IMM))- ; Auto Decrement
+    shl (BASE + IMM)    ; Direct
+    shl ((BASE + IMM))  ; Deferred
+    shl (+(BASE + IMM)) ; Auto Increment
+    shl ((BASE + IMM)-) ; Auto Decrement
 \end{verbatim}
 
 \subsubsection{Encoding}

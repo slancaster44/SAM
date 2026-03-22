@@ -1,15 +1,15 @@
 \pagebreak
-\subsection{Load Accumulator}
+\subsection{Load Program Counter}
 \begin{verbatim}
-    ld ac, (BASE + IMM)    ; Direct
-    ld ac, ((BASE + IMM))  ; Deferred
-    ld ac, (+(BASE + IMM)) ; Auto Increment
-    ld ac, ((BASE + IMM)-) ; Auto Decrement
+    ld pc, (BASE + IMM)    ; Direct
+    ld pc, ((BASE + IMM))  ; Deferred
+    ld pc, (+(BASE + IMM)) ; Auto Increment
+    ld pc, ((BASE + IMM)-) ; Auto Decrement
 \end{verbatim}
 
 \subsubsection{Encoding}
 This instruction will use the ARI format. 
-The operation field (OP) wil be $1000_2$
+The operation field (OP) wil be $1010_2$
 
 \begin{center}
     \begin{tabular}{|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|}
@@ -23,7 +23,7 @@ The operation field (OP) wil be $1000_2$
         \hline
         \multicolumn{1}{|c|}{1} & 
         \multicolumn{1}{c|}{0} & 
-        \multicolumn{1}{c|}{0} & 
+        \multicolumn{1}{c|}{1} & 
         \multicolumn{1}{c|}{0} & 
         \multicolumn{2}{c|}{MODE} &
         \multicolumn{2}{c|}{BASE} & 
@@ -35,4 +35,4 @@ The operation field (OP) wil be $1000_2$
 \subsubsection{Operation}
 $AC \leftarrow Memory[EA]$
 \par 
-Load the contents of the effective address (EA) into the accumulator (AC).
+Load the contents of the effective address (EA) into the program counter (PC).

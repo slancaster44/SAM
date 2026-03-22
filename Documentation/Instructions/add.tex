@@ -1,10 +1,10 @@
 \pagebreak
 \subsection{Add}
 \begin{verbatim}
-    add (BASE, IMM)    ; Direct
-    add ((BASE, IMM))  ; Deferred
-    add ((BASE, IMM))+ ; Auto Increment
-    add ((BASE, IMM))- ; Auto Decrement
+    add (BASE + IMM)    ; Direct
+    add ((BASE + IMM))  ; Deferred
+    add (+(BASE + IMM)) ; Auto Increment
+    add ((BASE + IMM)-) ; Auto Decrement
 \end{verbatim}
 
 \subsubsection{Encoding}
