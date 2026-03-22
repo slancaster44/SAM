@@ -1,10 +1,10 @@
 \pagebreak
 \subsection{Store}
 \begin{verbatim}
-    st (BASE + IMM)    ; Direct
-    st ((BASE + IMM))  ; Deferred
-    st (+(BASE + IMM)) ; Auto Increment
-    st ((BASE + IMM)-) ; Auto Decrement
+    st (BASE + IMM), ac    ; Direct
+    st ((BASE + IMM)), ac  ; Deferred
+    st (+(BASE + IMM)), ac ; Auto Increment
+    st ((BASE + IMM)-), ac ; Auto Decrement
 \end{verbatim}
 
 \subsubsection{Encoding}

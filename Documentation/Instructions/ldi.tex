@@ -57,11 +57,11 @@ The assembler will provide `pseudo-instructions' for the programmer's convenienc
         \hline
         Move & \verb|ld DR, SR| & \verb|ld DR, SR - 0| \\
         \hline
-        Increment & \verb|inc DR| & \verb|ld DR, DR - 1| \\
+        Add Immediate & \verb|add DR, IMM| & \verb|ld DR, DR - TwosComplement(IMM)| \\
         \hline
-        Decrement & \verb|dec DR| & \verb|ld DR, DR + 1| \\
+        Subtract Immediate & \verb|sub DR, IMM| & \verb|ld DR, DR - IMM| \\
         \hline
-        Jump Relative & \verb|jr OFFSET| & \verb|ld pc, pc, OFFSET| \\
+        Jump Relative & \verb|jr OFFSET| & \verb|ld pc, pc - OFFSET| \\
         \hline
         Reset & \verb|rst| & \verb|ld pc, zr + 0|\\
         \hline

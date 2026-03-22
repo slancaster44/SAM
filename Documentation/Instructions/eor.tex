@@ -1,10 +1,10 @@
 \pagebreak
 \subsection{Exclusive Or}
 \begin{verbatim}
-    eor (BASE + IMM)    ; Direct
-    eor ((BASE + IMM))  ; Deferred
-    eor (+(BASE + IMM)) ; Auto Increment
-    eor ((BASE + IMM)-) ; Auto Decrement
+    eor ac, (BASE + IMM)    ; Direct
+    eor ac, ((BASE + IMM))  ; Deferred
+    eor ac, (+(BASE + IMM)) ; Auto Increment
+    eor ac, ((BASE + IMM)-) ; Auto Decrement
 \end{verbatim}
 
 \subsubsection{Encoding}
